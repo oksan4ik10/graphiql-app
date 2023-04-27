@@ -1,0 +1,21 @@
+@import url("../../../variables.css");
+
+.button {
+  border-radius: var(--default-border-radius);
+  border: var(--default-border-style);
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--color-one);
+  cursor: pointer;
+  transition: 0.25s;
+  height: var(--button-height);
+  width: var(--button-width);
+  margin: 10px;
+  transition: 0.25s;
+}
+
+.button:hover {
+  background-color: var(--color-three);
+  transform: scale(1.1);
+}

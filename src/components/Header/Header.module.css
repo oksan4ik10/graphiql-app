@@ -1,0 +1,17 @@
+@import url("../../variables.css");
+
+.header {
+  background-image: var(--gradient-one);
+  height: 60px;
+  width: 100%;
+}
+
+.wrapper {
+  max-width: var(--max-width);
+  margin: auto;
+  height: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 10px;
+}

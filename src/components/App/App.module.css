@@ -1,0 +1,9 @@
+@import url("../../variables.css");
+
+.wrapper {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  flex: 1 0 auto;
+}
