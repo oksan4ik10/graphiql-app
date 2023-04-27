@@ -1,0 +1,20 @@
+.logo_wrapper {
+  box-sizing: border-box;
+  overflow: hidden;
+  height: 100%;
+  aspect-ratio: 1;
+  cursor: pointer;
+  padding: 5px;
+  margin-right: auto;
+}
+
+.logo_inner {
+  width: 100%;
+  height: 100%;
+  background: url("../../../../public/icon.png") 0% center / cover;
+  transition: 0.25s;
+}
+
+.logo_inner:hover {
+  transform: scale(1.1);
+}

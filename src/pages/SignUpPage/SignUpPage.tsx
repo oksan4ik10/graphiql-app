@@ -1,4 +1,4 @@
-import './SignUpPage.module.css';
+import style from './SignUpPage.module.css';
 
 export default function SignUpPage() {
   return (

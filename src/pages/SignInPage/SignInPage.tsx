@@ -1,4 +1,4 @@
-import './SignInPage.module.css';
+import style from './SignInPage.module.css';
 
 export default function SignInPage() {
   return (
