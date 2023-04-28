@@ -8,10 +8,18 @@ interface IAnchorWithImageProps {
   specialStyle?: string;
 }
 
-export default function AnchorWithImage({ aHref, aText, imgSrc, imgAlt, specialStyle }: IAnchorWithImageProps) {
-  const specialWidth = specialStyle ? {
-    width: specialStyle
-  } : {}
+export default function AnchorWithImage({
+  aHref,
+  aText,
+  imgSrc,
+  imgAlt,
+  specialStyle,
+}: IAnchorWithImageProps) {
+  const specialWidth = specialStyle
+    ? {
+        width: specialStyle,
+      }
+    : {};
 
   return (
     <div className={styles.anchor_with_image_wrapper}>

@@ -4,11 +4,20 @@ interface IButtonProps {
   buttonText: string;
   buttonType: 'button' | 'submit' | 'reset' | undefined;
   buttonStyle?: 'alternate_back' | '';
+  func?: () => void;
 }
 
-export default function Button({ buttonText, buttonType, buttonStyle }: IButtonProps) {
+export default function Button({ buttonText, buttonType, buttonStyle, func }: IButtonProps) {
+  const handleClick = () => {
+    func && func();
+  };
+
   return (
-    <button className={buttonStyle ? `button ${buttonStyle}` : 'button'} type={buttonType}>
+    <button
+      onClick={handleClick}
+      className={buttonStyle ? `button ${buttonStyle}` : 'button'}
+      type={buttonType}
+    >
       {buttonText}
     </button>
   );

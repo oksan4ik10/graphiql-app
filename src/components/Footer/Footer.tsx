@@ -24,10 +24,10 @@ export default function Footer() {
         </article>
         <article className={style.footer_year}>2023</article>
         <AnchorWithImage
-            specialStyle="80px"
-            aHref="https://github.com/oksan4ik10"
-            imgSrc="./rs.svg"
-          />
+          specialStyle="80px"
+          aHref="https://github.com/oksan4ik10"
+          imgSrc="./rs.svg"
+        />
       </section>
     </footer>
   );
