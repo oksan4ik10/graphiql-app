@@ -25,7 +25,7 @@ export default function Footer() {
         <article className={style.footer_year}>2023</article>
         <AnchorWithImage
           specialStyle="80px"
-          aHref="https://github.com/oksan4ik10"
+          aHref="https://rs.school/react/"
           imgSrc="./rs.svg"
         />
       </section>
