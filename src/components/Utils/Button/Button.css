@@ -19,3 +19,7 @@
   background-color: var(--color-three);
   transform: scale(1.1);
 }
+
+.alternate_back {
+  background-color: var(--color-three);
+}
