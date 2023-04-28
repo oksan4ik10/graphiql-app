@@ -13,7 +13,7 @@ export function App() {
   return (
     <>
       <Header />
-      <div className={style.wrapper}>
+      <main className={style.wrapper}>
         <Routes>
           <Route path="/" element={<WelcomePage />}></Route>
           <Route path="/signup" element={<SignUpPage />}></Route>
@@ -21,7 +21,7 @@ export function App() {
           <Route path="/main" element={<MainPage />}></Route>
           <Route path="*" element={<NotFoundPage />}></Route>
         </Routes>
-      </div>
+      </main>
       <Footer />
     </>
   );
