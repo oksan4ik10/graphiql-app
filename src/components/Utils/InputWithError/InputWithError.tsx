@@ -1,4 +1,4 @@
-import styles from './Input.module.css';
+import styles from './InputWithError.module.css';
 
 interface IInputWithErrorProps {
   type: string;
