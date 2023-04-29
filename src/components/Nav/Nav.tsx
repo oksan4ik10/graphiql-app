@@ -59,7 +59,7 @@ export function GoToMain() {
       className={style.header_nav_item}
       children={({ isActive }) => (
         <Button
-          buttonText="To Main"
+          buttonText="Main"
           buttonType="button"
           buttonStyle={isActive ? 'alternate_back' : ''}
         />

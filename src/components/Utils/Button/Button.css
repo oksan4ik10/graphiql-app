@@ -11,7 +11,7 @@
   transition: 0.25s;
   height: var(--button-height);
   width: var(--button-width);
-  margin: 10px;
+  margin: 5px 10px;
   transition: 0.25s;
 }
 

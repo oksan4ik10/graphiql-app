@@ -25,6 +25,10 @@ export default function SignInForm() {
     console.log('login form submitted!');
   };
 
+  const signInWithGoogle = () => {};
+
+  const resetPassword = () => {};
+
   return (
     <div className={styles.signin_wrap}>
       <form className={styles.signin_in_wrap} onSubmit={(e) => handeSubmit(e)}>
@@ -43,6 +47,13 @@ export default function SignInForm() {
           errorText="Please fill in your password."
         />
         <Button buttonType="submit" buttonText="Sign In" buttonWidth="84%" />
+        <Button
+          func={signInWithGoogle}
+          buttonType="button"
+          buttonText="Sign In with Google"
+          buttonWidth="84%"
+        />
+        <a onClick={resetPassword}>Forgot password?</a>
         <div className={styles.signup_signin}>
           {"Don't have an account?"} <a onClick={() => navigate('/signup')}>Sign up now!</a>
         </div>

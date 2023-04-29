@@ -1,9 +1,12 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 import InputWithError from '../Utils/InputWithError/InputWithError';
 import styles from './SignUpForm.module.css';
 import Button from '../Utils/Button/Button';
+import registerWithEmailAndPassword from '../../firebase/emailPassword/signUpWithEmailPassword';
+import { auth } from '../../firebase/firebaseSetup';
 
 interface IErrors {
   isNameError: boolean;
@@ -16,7 +19,13 @@ export default function SignUpForm() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPassRef = useRef<HTMLInputElement>(null);
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loading) return;
+    if (user) navigate('/');
+  }, [user, loading]);
 
   const errors: IErrors = {
     isNameError: false,
@@ -35,7 +44,15 @@ export default function SignUpForm() {
 
   const handeSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log('registration form submitted!');
+
+    if (nameRef.current?.value && emailRef.current?.value && passwordRef.current?.value) {
+      registerWithEmailAndPassword(
+        nameRef.current.value,
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+      console.log('registration form submitted!');
+    }
   };
 
   return (

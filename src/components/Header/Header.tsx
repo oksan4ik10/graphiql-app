@@ -1,16 +1,21 @@
+import { useAuthState } from 'react-firebase-hooks/auth';
+
 import { GoToMain, LogOut, SignIn, SignUp } from '../Nav/Nav';
 import Logo from '../Utils/Logo/Logo';
 import style from './Header.module.css';
+import { auth } from '../../firebase/firebaseSetup';
 
 export default function Header() {
+  const [user] = useAuthState(auth);
+
   return (
     <header className={style.header}>
       <div className={style.wrapper}>
         <Logo />
-        <SignUp />
-        <SignIn />
-        <LogOut />
-        <GoToMain />
+        {!user && <SignUp />}
+        {!user && <SignIn />}
+        {user && <LogOut />}
+        {user && <GoToMain />}
       </div>
     </header>
   );
