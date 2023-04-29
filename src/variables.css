@@ -10,5 +10,8 @@
   --color-one: #06b97a;
   --color-two: #235ad1;
   --color-three: #cd7992;
-  --gradient-one: linear-gradient(100deg, #cd7992, #C6E2FF, #d3ffce, #bad6f0);
+  --color-background: #E6E6FA;
+  --color-error: #cb3d48;
+  
+  --gradient-one: linear-gradient(150deg, #cd7992, #C6E2FF, #d3ffce, #bad6f0);
 }

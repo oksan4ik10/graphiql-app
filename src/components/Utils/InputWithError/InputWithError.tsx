@@ -4,7 +4,7 @@ interface IInputWithErrorProps {
   type: string;
   placeholder?: string;
   legend?: string;
-  ref?: React.RefObject<HTMLInputElement>;
+  reff?: React.RefObject<HTMLInputElement>;
   specialStyle?: string;
   isError?: boolean;
   errorText?: string;
@@ -14,7 +14,7 @@ export default function InputWithError({
   type,
   placeholder,
   legend,
-  ref,
+  reff,
   specialStyle,
   isError,
   errorText,
@@ -28,8 +28,13 @@ export default function InputWithError({
   return (
     <div className={styles.input_wrapper} style={specialWidth}>
       {legend && <div>{legend}</div>}
-      <input type={type} placeholder={placeholder && placeholder} ref={ref && ref} />
-      <div>{isError && errorText && errorText}</div>
+      <input
+        type={type}
+        placeholder={placeholder && placeholder}
+        ref={reff && reff}
+        className={styles.input}
+      />
+      <div className={styles.input_error}>{isError && errorText && errorText}</div>
     </div>
   );
 }

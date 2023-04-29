@@ -1,11 +1,11 @@
 @import url("../../variables.css");
 
-.signup_wrap {
+.signin_wrap {
   width: 95%;
   height: 95%;
 }
 
-.signup_in_wrap {
+.signin_in_wrap {
   width: 35%;
   padding: 5%;
   min-width: 350px;

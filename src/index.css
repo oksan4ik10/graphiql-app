@@ -24,6 +24,7 @@ a {
   font-weight: 500;
   color: var(--color-one);
   text-decoration: inherit;
+  cursor: pointer;
 }
 a:hover {
   color: var(--color-three);;
