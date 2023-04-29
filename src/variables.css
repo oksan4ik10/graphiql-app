@@ -1,14 +1,17 @@
 :root {
   --max-width: 1280px;
 
-  --default-border-radius: 15px;
+  --default-border-radius: 10px;
   --default-border-style: 1px solid transparent;
 
-  --button-height: 40px;
+  --button-height: 30px;
   --button-width: 120px;
 
   --color-one: #06b97a;
   --color-two: #235ad1;
   --color-three: #cd7992;
-  --gradient-one: linear-gradient(100deg, #cd7992, #C6E2FF, #d3ffce, #bad6f0);
+  --color-background: #E6E6FA;
+  --color-error: #cb3d48;
+  
+  --gradient-one: linear-gradient(150deg, #cd7992, #C6E2FF, #d3ffce, #bad6f0);
 }
