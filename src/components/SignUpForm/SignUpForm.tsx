@@ -14,7 +14,7 @@ import {
   updateName,
   updatePassword,
 } from '../../store/reducers/signupInputsReducer';
-import { updateEmailError, updateNameError } from '../../store/reducers/signupErrorsReducer';
+import { updateEmailError, updateNameError, updatePasswordError } from '../../store/reducers/signupErrorsReducer';
 
 export default function SignUpForm() {
   const [user, loading] = useAuthState(auth);
@@ -74,7 +74,8 @@ export default function SignUpForm() {
   };
 
   const handleChange = (field: 'name_' | 'email' | 'password' | 'confirmPass', value: string) => {
-    setClicked(false);
+    if (clicked) setClicked(false);
+
     switch (field) {
       case 'name_':
         dispatch(updateName(value));
@@ -126,7 +127,25 @@ export default function SignUpForm() {
   };
 
   const validatePassword = () => {
-    //console.log(inputPass);
+    if (inputPass.length < 8) {
+      if (!errorPassword) dispatch(updatePasswordError(true));
+      setPassErrorText(passwErrorTextOpts.length);
+    } else if (!inputPass.match(/^(?=.*[a-zA-Z])/)){
+      if (!errorPassword) dispatch(updatePasswordError(true));
+      setPassErrorText(passwErrorTextOpts.letter);
+    } else if (!inputPass.match(/^(?=.*\d)/)){
+      if (!errorPassword) dispatch(updatePasswordError(true));
+      setPassErrorText(passwErrorTextOpts.num);
+    } else if (!inputPass.match(/^(?=.*[!#$%&? "])/)){
+      if (!errorPassword) dispatch(updatePasswordError(true));
+      setPassErrorText(passwErrorTextOpts.special);
+    } else if (inputPass !== inputConfirmPass) {
+      if (!errorPassword) dispatch(updatePasswordError(true));
+      setPassErrorText(passwErrorTextOpts.different);
+    } else {
+      if (errorPassword) dispatch(updatePasswordError(false));
+      setPassErrorText("");
+    }
   };
 
   const handeSubmit = (e: FormEvent) => {
