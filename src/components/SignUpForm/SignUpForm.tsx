@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
@@ -30,22 +30,20 @@ export default function SignUpForm() {
   const errorPassword = useAppSelector((state) => state.signupErrorsReducer.isPasswordError);
 
   const [passErrorText, setPassErrorText] = useState('');
+  const [clicked, setClicked] = useState(false);
 
   const nameDidMount = useRef(false);
   const emailDidMount = useRef(false);
   const passDidMount = useRef(false);
-  
+
   useEffect(() => {
-    if (nameDidMount.current && emailDidMount && passDidMount) {
-      if (!errorName && !errorEmail && !errorPassword) {
+    if (nameDidMount.current && emailDidMount.current && passDidMount.current) {
+      if (!errorName && !errorEmail && !errorPassword && clicked) {
         registerWithEmailAndPassword(inputName, inputEmail, inputPass);
         console.log('registration form submitted!');
       }
-    }
-    else console.log('registration error');
-    
-  }, [errorEmail, errorEmail, errorPassword] );
-
+    } else console.log('registration error');
+  }, [clicked]);
 
   useEffect(() => {
     if (loading) return;
@@ -76,6 +74,7 @@ export default function SignUpForm() {
   };
 
   const handleChange = (field: 'name_' | 'email' | 'password' | 'confirmPass', value: string) => {
+    setClicked(false);
     switch (field) {
       case 'name_':
         dispatch(updateName(value));
@@ -95,43 +94,49 @@ export default function SignUpForm() {
   // validation logic
   const validateName = () => {
     if (inputName.length < 1 || !inputName.match(/^[a-zA-Zа-яА-Я \-]+$/)) {
-      dispatch(updateNameError(true))
+      dispatch(updateNameError(true));
     } else {
-      dispatch(updateNameError(false))
+      dispatch(updateNameError(false));
     }
   };
 
   const validateEmail = () => {
-    if(inputEmail.length < 1 ) {
-      dispatch(updateEmailError(true))
+    if (inputEmail.length < 1) {
+      dispatch(updateEmailError(true));
+      return;
     }
+
+    const lastAtPos = inputEmail.lastIndexOf('@');
+    const lastDotPos = inputEmail.lastIndexOf('.');
+
+    if (
+      !(
+        lastAtPos < lastDotPos &&
+        lastAtPos > 0 &&
+        inputEmail.indexOf('@@') == -1 &&
+        lastDotPos > 2 &&
+        inputEmail.length - lastDotPos > 2
+      )
+    ) {
+      dispatch(updateEmailError(true));
+      return;
+    }
+
+    dispatch(updateEmailError(false));
   };
 
   const validatePassword = () => {
-    console.log(inputPass);
+    //console.log(inputPass);
   };
 
-  const register = useCallback(() => {
-    if (!errorName && !errorEmail && !errorPassword) {
-      registerWithEmailAndPassword(inputName, inputEmail, inputPass);
-      console.log('registration form submitted!');
-    }
-  }, [errorName, errorEmail, errorPassword])
-
- 
-
-  const handeSubmit = async (e: FormEvent) => {
+  const handeSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    setClicked(true);
 
     validateName();
     validateEmail();
     validatePassword();
-/*
-    if (!errorName && !errorEmail && !errorPassword) {
-      registerWithEmailAndPassword(inputName, inputEmail, inputPass);
-      console.log('registration form submitted!');
-    }
-    else console.log('registration error'); */
   };
 
   return (
