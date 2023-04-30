@@ -40,8 +40,8 @@ export function SignIn() {
 export function LogOut() {
   const reload = () => {
     window.location.reload();
-  }
-  
+  };
+
   return (
     <NavLink
       to="/"

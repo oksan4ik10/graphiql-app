@@ -11,7 +11,11 @@ import { auth } from '../../firebase/firebaseSetup';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import logInWithEmailAndPassword from '../../firebase/emailPassword/signInWithEmailPassword';
 import { updateEmailLogin, updatePasswordLogin } from '../../store/reducers/signinInputsReducer';
-import { updateEmailErrorLogin, updatePasswordErrorLogin } from '../../store/reducers/signinErrorsReducer';
+import {
+  updateEmailErrorLogin,
+  updatePasswordErrorLogin,
+} from '../../store/reducers/signinErrorsReducer';
+import sendPasswordReset from '../../firebase/emailPassword/resetPassword';
 
 export default function SignInForm() {
   const [user, loading] = useAuthState(auth);
@@ -37,9 +41,9 @@ export default function SignInForm() {
   useEffect(() => {
     if (emailDidMount.current && passDidMount.current) {
       if (!errorEmail && !errorPassword && clicked) {
-        logInWithEmailAndPassword(inputEmail, inputPass)
+        logInWithEmailAndPassword(inputEmail, inputPass);
       }
-    } 
+    }
   }, [clicked]);
 
   useEffect(() => {
@@ -88,7 +92,7 @@ export default function SignInForm() {
     }
 
     dispatch(updateEmailErrorLogin(false));
-  }
+  };
 
   const passwErrorTextOpts = {
     length: 'Password must have at least 8 characters.',
@@ -101,23 +105,25 @@ export default function SignInForm() {
     if (inputPass.length < 8) {
       if (!errorPassword) dispatch(updatePasswordErrorLogin(true));
       setPassErrorText(passwErrorTextOpts.length);
-    } else if (!inputPass.match(/^(?=.*[a-zA-Z])/)){
+    } else if (!inputPass.match(/^(?=.*[a-zA-Z])/)) {
       if (!errorPassword) dispatch(updatePasswordErrorLogin(true));
       setPassErrorText(passwErrorTextOpts.letter);
-    } else if (!inputPass.match(/^(?=.*\d)/)){
+    } else if (!inputPass.match(/^(?=.*\d)/)) {
       if (!errorPassword) dispatch(updatePasswordErrorLogin(true));
       setPassErrorText(passwErrorTextOpts.num);
-    } else if (!inputPass.match(/^(?=.*[!#$%&? "])/)){
+    } else if (!inputPass.match(/^(?=.*[!#$%&? "])/)) {
       if (!errorPassword) dispatch(updatePasswordErrorLogin(true));
       setPassErrorText(passwErrorTextOpts.special);
     } else {
       if (errorPassword) dispatch(updatePasswordErrorLogin(false));
-      setPassErrorText("");
+      setPassErrorText('');
     }
-  }
- 
+  };
+
   //TODO
-  const resetPassword = () => {};
+  const resetPassword = () => {
+    sendPasswordReset(inputEmail);
+  };
 
   const handeSubmit = (e: FormEvent) => {
     e.preventDefault();
