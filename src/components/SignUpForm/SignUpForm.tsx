@@ -2,8 +2,9 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import InputWithError from '../Utils/InputWithError/InputWithError';
 import styles from './SignUpForm.module.css';
+
+import InputWithError from '../Utils/InputWithError/InputWithError';
 import Button from '../Utils/Button/Button';
 import registerWithEmailAndPassword from '../../firebase/emailPassword/signUpWithEmailPassword';
 import { auth } from '../../firebase/firebaseSetup';
@@ -40,9 +41,8 @@ export default function SignUpForm() {
     if (nameDidMount.current && emailDidMount.current && passDidMount.current) {
       if (!errorName && !errorEmail && !errorPassword && clicked) {
         registerWithEmailAndPassword(inputName, inputEmail, inputPass);
-        console.log('registration form submitted!');
       }
-    } else console.log('registration error');
+    } 
   }, [clicked]);
 
   useEffect(() => {
