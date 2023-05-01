@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-import testReducer from './reducers/testReducer';
 import signupInputsReducer from './reducers/signupInputsReducer';
 import signupErrorsReducer from './reducers/signupErrorsReducer';
 import signinInputsReducer from './reducers/signinInputsReducer';
@@ -11,7 +10,6 @@ import signinErrorsReducer from './reducers/signinErrorsReducer';
 import codeEditReducer from './reducers/codeEditReducer';
 
 const rootReducer = combineReducers({
-  testReducer,
   signupInputsReducer,
   signupErrorsReducer,
   signinInputsReducer,
