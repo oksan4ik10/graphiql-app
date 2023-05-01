@@ -14,4 +14,5 @@
   --color-error: #cb3d48;
   
   --gradient-one: linear-gradient(150deg, #cd7992, #C6E2FF, #d3ffce, #bad6f0);
+  --gradient-two: linear-gradient(150deg, #bad6f0, #d3ffce, #C6E2FF, #cd7992)
 }
