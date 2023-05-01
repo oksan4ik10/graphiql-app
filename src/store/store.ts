@@ -6,7 +6,6 @@ import signupInputsReducer from './reducers/signupInputsReducer';
 import signupErrorsReducer from './reducers/signupErrorsReducer';
 import signinInputsReducer from './reducers/signinInputsReducer';
 import signinErrorsReducer from './reducers/signinErrorsReducer';
-
 import codeEditReducer from './reducers/codeEditReducer';
 
 export const combinedReducer = combineReducers({
@@ -17,14 +16,14 @@ export const combinedReducer = combineReducers({
   codeEditReducer,
 });
 
-export type ICombinedReducerState = ReturnType<typeof combinedReducer>
+export type ICombinedReducerState = ReturnType<typeof combinedReducer>;
 
 const rootReducer: Reducer = (state: ICombinedReducerState, action: AnyAction) => {
-  if (action.type === "RESET") {
+  if (action.type === 'RESET') {
     state = {} as ICombinedReducerState;
   }
   return combinedReducer(state, action);
-}
+};
 
 const store = configureStore({
   reducer: rootReducer,
@@ -41,6 +40,6 @@ export const useAppSelector: TypedUseSelectorHook<IRootState> = useSelector;
 
 export const initialRootState = {
   ...store.getState(),
-}
+};
 
 export default store;

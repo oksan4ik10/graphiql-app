@@ -10,7 +10,11 @@ import signInWithGoogle from '../../firebase/google/signInWIthGoogle';
 import { auth } from '../../firebase/firebaseSetup';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import logInWithEmailAndPassword from '../../firebase/emailPassword/signInWithEmailPassword';
-import { updateEmailLogin, updatePasswordLogin } from '../../store/reducers/signinInputsReducer';
+import {
+  updateEmailLogin,
+  updatePassErrorTextLogin,
+  updatePasswordLogin,
+} from '../../store/reducers/signinInputsReducer';
 import {
   updateEmailErrorLogin,
   updatePasswordErrorLogin,
@@ -32,8 +36,8 @@ export default function SignInForm() {
   const inputPass = useAppSelector((state) => state.signinInputsReducer.password);
   const errorEmail = useAppSelector((state) => state.signinErrorsReducer.isEmailError);
   const errorPassword = useAppSelector((state) => state.signinErrorsReducer.isPasswordError);
+  const errorPassText = useAppSelector((state) => state.signinInputsReducer.passError);
 
-  const [passErrorText, setPassErrorText] = useState('');
   const [clicked, setClicked] = useState(false);
 
   const emailDidMount = useRef(false);
@@ -43,7 +47,6 @@ export default function SignInForm() {
     if (emailDidMount.current && passDidMount.current) {
       if (!errorEmail && !errorPassword && clicked) {
         logInWithEmailAndPassword(inputEmail, inputPass).then(() => returnToDefaultState());
-        
       }
     }
   }, [clicked]);
@@ -96,29 +99,22 @@ export default function SignInForm() {
     dispatch(updateEmailErrorLogin(false));
   };
 
-  const passwErrorTextOpts = {
-    length: 'Password must have at least 8 characters.',
-    letter: 'Password must have at least 1 letter.',
-    num: 'Password must have at least 1 number.',
-    special: 'Password must have at least 1 special character.',
-  };
-
   const validatePassword = () => {
     if (inputPass.length < 8) {
       if (!errorPassword) dispatch(updatePasswordErrorLogin(true));
-      setPassErrorText(passwErrorTextOpts.length);
+      dispatch(updatePassErrorTextLogin('length'));
     } else if (!inputPass.match(/^(?=.*[a-zA-Z])/)) {
       if (!errorPassword) dispatch(updatePasswordErrorLogin(true));
-      setPassErrorText(passwErrorTextOpts.letter);
+      dispatch(updatePassErrorTextLogin('letter'));
     } else if (!inputPass.match(/^(?=.*\d)/)) {
       if (!errorPassword) dispatch(updatePasswordErrorLogin(true));
-      setPassErrorText(passwErrorTextOpts.num);
+      dispatch(updatePassErrorTextLogin('num'));
     } else if (!inputPass.match(/^(?=.*[!#$%&? "])/)) {
       if (!errorPassword) dispatch(updatePasswordErrorLogin(true));
-      setPassErrorText(passwErrorTextOpts.special);
+      dispatch(updatePassErrorTextLogin('special'));
     } else {
       if (errorPassword) dispatch(updatePasswordErrorLogin(false));
-      setPassErrorText('');
+      dispatch(updatePassErrorTextLogin('initial'));
     }
   };
 
@@ -153,7 +149,7 @@ export default function SignInForm() {
           value={inputPass}
           onChange={(e) => handleChange('password', e.target.value)}
           isError={errorPassword}
-          errorText={passErrorText}
+          errorText={errorPassText}
         />
         <Button buttonType="submit" buttonText="Sign In" buttonWidth="84%" />
         <Button
