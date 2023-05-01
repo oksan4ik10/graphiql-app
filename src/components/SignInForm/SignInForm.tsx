@@ -23,7 +23,7 @@ export default function SignInForm() {
 
   useEffect(() => {
     if (loading) return;
-    if (user) navigate('/');
+    if (user) navigate('/main');
   }, [user, loading]);
 
   const dispatch = useAppDispatch();

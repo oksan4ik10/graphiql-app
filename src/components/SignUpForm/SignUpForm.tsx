@@ -51,7 +51,7 @@ export default function SignUpForm() {
 
   useEffect(() => {
     if (loading) return;
-    if (user) navigate('/');
+    if (user) navigate('/main');
   }, [user, loading]);
 
   useEffect(() => {
