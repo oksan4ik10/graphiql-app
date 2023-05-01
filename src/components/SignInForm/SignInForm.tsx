@@ -16,6 +16,7 @@ import {
   updatePasswordErrorLogin,
 } from '../../store/reducers/signinErrorsReducer';
 import sendPasswordReset from '../../firebase/emailPassword/resetPassword';
+import returnToDefaultState from '../../store/returnToDefaultState';
 
 export default function SignInForm() {
   const [user, loading] = useAuthState(auth);
@@ -41,7 +42,8 @@ export default function SignInForm() {
   useEffect(() => {
     if (emailDidMount.current && passDidMount.current) {
       if (!errorEmail && !errorPassword && clicked) {
-        logInWithEmailAndPassword(inputEmail, inputPass);
+        logInWithEmailAndPassword(inputEmail, inputPass).then(() => returnToDefaultState());
+        
       }
     }
   }, [clicked]);
@@ -155,7 +157,9 @@ export default function SignInForm() {
         />
         <Button buttonType="submit" buttonText="Sign In" buttonWidth="84%" />
         <Button
-          func={signInWithGoogle}
+          func={() => {
+            signInWithGoogle().then(() => returnToDefaultState());
+          }}
           buttonType="button"
           buttonText="Sign In with Google"
           buttonWidth="84%"
