@@ -8,12 +8,15 @@ import signupErrorsReducer from './reducers/signupErrorsReducer';
 import signinInputsReducer from './reducers/signinInputsReducer';
 import signinErrorsReducer from './reducers/signinErrorsReducer';
 
+import codeEditReducer from './reducers/codeEditReducer';
+
 const rootReducer = combineReducers({
   testReducer,
   signupInputsReducer,
   signupErrorsReducer,
   signinInputsReducer,
   signinErrorsReducer,
+  codeEditReducer,
 });
 
 const store = configureStore({
