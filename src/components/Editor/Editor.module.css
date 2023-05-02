@@ -1,0 +1,6 @@
+.codeMirror{
+    display: grid;
+    grid-template-columns: 1.8fr 0.2fr;
+    gap: 10px;
+    
+}

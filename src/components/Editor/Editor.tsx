@@ -4,6 +4,9 @@ import { ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { codeEditorSlice } from '../../store/reducers/codeEditReducer';
 
+import Button from '../Utils/Button/Button';
+import style from './Editor.module.css';
+
 export default function Editor() {
   const { strCode } = useAppSelector((state) => state.codeEditReducer);
   const dispatch = useAppDispatch();
@@ -14,18 +17,24 @@ export default function Editor() {
     dispatch(saveCode(text));
     console.log(strCode);
   }
+  function playCode() {
+    console.log(23);
+  }
 
   return (
-    <CodeMirror
-      value={strCode}
-      height="60vh"
-      basicSetup={{
-        foldGutter: false,
-        dropCursor: false,
-        allowMultipleSelections: false,
-        indentOnInput: false,
-      }}
-      onInput={changeInput}
-    />
+    <div className={style.codeMirror}>
+      <CodeMirror
+        value={strCode}
+        height="60vh"
+        basicSetup={{
+          foldGutter: false,
+          dropCursor: false,
+          allowMultipleSelections: false,
+          indentOnInput: false,
+        }}
+        onInput={changeInput}
+      />
+      <Button func={playCode} buttonType="button" buttonText="&#9658;" buttonWidth="100%" />
+    </div>
   );
 }
