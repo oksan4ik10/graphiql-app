@@ -13,6 +13,7 @@ import {
   updateConfirm,
   updateEmail,
   updateName,
+  updatePassErrorText,
   updatePassword,
 } from '../../store/reducers/signupInputsReducer';
 import {
@@ -33,8 +34,8 @@ export default function SignUpForm() {
   const errorName = useAppSelector((state) => state.signupErrorsReducer.isNameError);
   const errorEmail = useAppSelector((state) => state.signupErrorsReducer.isEmailError);
   const errorPassword = useAppSelector((state) => state.signupErrorsReducer.isPasswordError);
+  const errorPassText = useAppSelector((state) => state.signupInputsReducer.passError);
 
-  const [passErrorText, setPassErrorText] = useState('');
   const [clicked, setClicked] = useState(false);
 
   const nameDidMount = useRef(false);
@@ -51,7 +52,7 @@ export default function SignUpForm() {
 
   useEffect(() => {
     if (loading) return;
-    if (user) navigate('/');
+    if (user) navigate('/main');
   }, [user, loading]);
 
   useEffect(() => {
@@ -68,14 +69,6 @@ export default function SignUpForm() {
     if (passDidMount.current) validatePassword();
     passDidMount.current = true;
   }, [inputPass, inputConfirmPass]);
-
-  const passwErrorTextOpts = {
-    length: 'Password must have at least 8 characters.',
-    letter: 'Password must have at least 1 letter.',
-    num: 'Password must have at least 1 number.',
-    special: 'Password must have at least 1 special character.',
-    different: 'Please confirm your password.',
-  };
 
   const handleChange = (field: 'name_' | 'email' | 'password' | 'confirmPass', value: string) => {
     if (clicked) setClicked(false);
@@ -133,22 +126,19 @@ export default function SignUpForm() {
   const validatePassword = () => {
     if (inputPass.length < 8) {
       if (!errorPassword) dispatch(updatePasswordError(true));
-      setPassErrorText(passwErrorTextOpts.length);
+      dispatch(updatePassErrorText('length'));
     } else if (!inputPass.match(/^(?=.*[a-zA-Z])/)) {
       if (!errorPassword) dispatch(updatePasswordError(true));
-      setPassErrorText(passwErrorTextOpts.letter);
+      dispatch(updatePassErrorText('letter'));
     } else if (!inputPass.match(/^(?=.*\d)/)) {
       if (!errorPassword) dispatch(updatePasswordError(true));
-      setPassErrorText(passwErrorTextOpts.num);
+      dispatch(updatePassErrorText('num'));
     } else if (!inputPass.match(/^(?=.*[!#$%&? "])/)) {
       if (!errorPassword) dispatch(updatePasswordError(true));
-      setPassErrorText(passwErrorTextOpts.special);
-    } else if (inputPass !== inputConfirmPass) {
-      if (!errorPassword) dispatch(updatePasswordError(true));
-      setPassErrorText(passwErrorTextOpts.different);
+      dispatch(updatePassErrorText('special'));
     } else {
       if (errorPassword) dispatch(updatePasswordError(false));
-      setPassErrorText('');
+      dispatch(updatePassErrorText('initial'));
     }
   };
 
@@ -187,7 +177,7 @@ export default function SignUpForm() {
           value={inputPass}
           onChange={(e) => handleChange('password', e.target.value)}
           isError={errorPassword}
-          errorText={passErrorText}
+          errorText={errorPassText}
         />
         <InputWithError
           type="text"

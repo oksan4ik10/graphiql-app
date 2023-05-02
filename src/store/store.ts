@@ -1,23 +1,29 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, AnyAction, Reducer } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-import testReducer from './reducers/testReducer';
 import signupInputsReducer from './reducers/signupInputsReducer';
 import signupErrorsReducer from './reducers/signupErrorsReducer';
 import signinInputsReducer from './reducers/signinInputsReducer';
 import signinErrorsReducer from './reducers/signinErrorsReducer';
-
 import codeEditReducer from './reducers/codeEditReducer';
 
-const rootReducer = combineReducers({
-  testReducer,
+export const combinedReducer = combineReducers({
   signupInputsReducer,
   signupErrorsReducer,
   signinInputsReducer,
   signinErrorsReducer,
   codeEditReducer,
 });
+
+export type ICombinedReducerState = ReturnType<typeof combinedReducer>;
+
+const rootReducer: Reducer = (state: ICombinedReducerState, action: AnyAction) => {
+  if (action.type === 'RESET') {
+    state = {} as ICombinedReducerState;
+  }
+  return combinedReducer(state, action);
+};
 
 const store = configureStore({
   reducer: rootReducer,
@@ -31,5 +37,9 @@ type IDispatchFunc = () => IRootDispatch;
 // использовать useAppDispatch и useAppSelector как использовались бы useDispatch и useSelector
 export const useAppDispatch: IDispatchFunc = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<IRootState> = useSelector;
+
+export const initialRootState = {
+  ...store.getState(),
+};
 
 export default store;

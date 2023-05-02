@@ -7,7 +7,7 @@ import style from './Header.module.css';
 import { auth } from '../../firebase/firebaseSetup';
 
 export default function Header() {
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const [fix, setFix] = useState(false);
 
   function setFixed() {
@@ -24,8 +24,8 @@ export default function Header() {
     <header className={fix ? style.fixed : style.header}>
       <div className={style.wrapper}>
         <Logo />
-        {!user && <SignUp />}
-        {!user && <SignIn />}
+        {!loading && user === null && <SignUp />}
+        {!loading && user === null && <SignIn />}
         {user && <LogOut />}
         {user && <GoToMain />}
       </div>
