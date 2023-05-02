@@ -3,22 +3,23 @@
 .header {
   background-color: white;
   background-image: var(--gradient-one);
-  height: 65px;
+  height: 60px;
   width: 100%;
   position: sticky;
   top: 0;
   z-index: 1;
-  transition: all 0.35s ease;
+  transition: height 0.4s ease-in-out; 
 }
 
 .fixed {
-  height: 50px;
+  height: 45px;
   width: 100%;
   position: sticky;
   top: 0;
-  background: var(--gradient-two);
+  background-image: var(--gradient-one);
+  /* background: var(--gradient-two); */
   z-index: 1000;
-  transition: all 0.35s ease-in-out;
+  transition: height 0.4s ease-in-out;
 }
 
 .wrapper {
