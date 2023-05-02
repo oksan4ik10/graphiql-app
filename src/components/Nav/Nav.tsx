@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import style from './Nav.module.css';
 import Button from '../Utils/Button/Button';
 import logout from '../../firebase/emailPassword/logOut';
+import returnToDefaultState from '../../store/returnToDefaultState';
 
 export function SignUp() {
   return (
@@ -36,12 +37,7 @@ export function SignIn() {
   );
 }
 
-//пока что кнопка просто ведёт назад на WelcomePage
 export function LogOut() {
-  const reload = () => {
-    window.location.reload();
-  };
-
   return (
     <NavLink
       to="/"
@@ -49,7 +45,7 @@ export function LogOut() {
       children={({ isActive }) => (
         <Button
           func={() => {
-            //reload();
+            returnToDefaultState();
             logout();
           }}
           buttonText="Log Out"

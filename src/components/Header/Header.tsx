@@ -6,14 +6,14 @@ import style from './Header.module.css';
 import { auth } from '../../firebase/firebaseSetup';
 
 export default function Header() {
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   return (
     <header className={style.header}>
       <div className={style.wrapper}>
         <Logo />
-        {!user && <SignUp />}
-        {!user && <SignIn />}
+        {!loading && user === null && <SignUp />}
+        {!loading && user === null && <SignIn />}
         {user && <LogOut />}
         {user && <GoToMain />}
       </div>
