@@ -1,9 +1,25 @@
 @import url("../../variables.css");
 
 .header {
+  background-color: white;
   background-image: var(--gradient-one);
   height: 60px;
   width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  transition: height 0.4s ease-in-out; 
+}
+
+.fixed {
+  height: 45px;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background-image: var(--gradient-one);
+  /* background: var(--gradient-two); */
+  z-index: 1000;
+  transition: height 0.4s ease-in-out;
 }
 
 .wrapper {

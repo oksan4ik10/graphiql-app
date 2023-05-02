@@ -3,9 +3,11 @@ import Editor from '../../components/Editor/Editor';
 
 export default function MainPage() {
   return (
-    <div>
-      <h1 className={styles.main_h1}>This page is so Main and so super.</h1>
+    <div className={styles.main__container}>
+      <h2>Документация</h2>
+
       <Editor></Editor>
+      <h2>Ответ сервера</h2>
     </div>
   );
 }
