@@ -21,7 +21,7 @@ export function App() {
     return (
       <>
         <Header />
-        <main className={styles.wrapper}>
+        <main className={styles.wrapper_loader}>
           <img src={loader} alt="loader" />
         </main>
         <Footer />
