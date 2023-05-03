@@ -32,11 +32,11 @@ export default function SignInForm() {
   }, [user, loading]);
 
   const dispatch = useAppDispatch();
-  const inputEmail = useAppSelector((state) => state.signinInputsReducer.email);
-  const inputPass = useAppSelector((state) => state.signinInputsReducer.password);
-  const errorEmail = useAppSelector((state) => state.signinErrorsReducer.isEmailError);
-  const errorPassword = useAppSelector((state) => state.signinErrorsReducer.isPasswordError);
-  const errorPassText = useAppSelector((state) => state.signinInputsReducer.passError);
+  const inputEmail = useAppSelector<string>((state) => state.signinInputsReducer.email);
+  const inputPass = useAppSelector<string>((state) => state.signinInputsReducer.password);
+  const errorEmail = useAppSelector<boolean>((state) => state.signinErrorsReducer.isEmailError);
+  const errorPassword = useAppSelector<boolean>((state) => state.signinErrorsReducer.isPasswordError);
+  const errorPassText = useAppSelector<string>((state) => state.signinInputsReducer.passError);
 
   const [clicked, setClicked] = useState(false);
 
