@@ -3,6 +3,7 @@
 .signin_wrap {
   width: 95%;
   height: 95%;
+  margin: auto;
 }
 
 .signin_in_wrap {
@@ -20,9 +21,13 @@
   user-select: none;
 }
 
+.signin_forgot {
+  display: block;
+}
+
 @media (max-width: 450px) {
 
-  .signup_in_wrap {
+  .signin_in_wrap {
     min-width: 260px;
     max-width: 300px;
   }

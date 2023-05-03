@@ -1,9 +1,7 @@
 @import url("../../variables.css");
 
 .wrapper {
-  max-width: var(--max-width);
   margin: 0;
-  padding: 1rem;
   flex: 1 0 auto;
 }
 
