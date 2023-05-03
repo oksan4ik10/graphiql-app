@@ -1,5 +1,9 @@
 @import url("./variables.css");
 
+* {
+  box-sizing: border-box;
+}
+
 #root {
   width: 100%;
   display: flex;
@@ -40,7 +44,7 @@ body {
 
 h1 {
   font-size: 2em;
-  margin: 10px auto;
+  margin: 30px auto;
 }
 
 @media (prefers-color-scheme: light) {

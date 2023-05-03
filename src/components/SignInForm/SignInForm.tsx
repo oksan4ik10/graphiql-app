@@ -160,7 +160,9 @@ export default function SignInForm() {
           buttonText="Sign In with Google"
           buttonWidth="84%"
         />
-        <a className={styles.signin_forgot} onClick={resetPassword}>Forgot password?</a>
+        <a className={styles.signin_forgot} onClick={resetPassword}>
+          Forgot password?
+        </a>
         <div className={styles.signup_signin}>
           {"Don't have an account?"} <a onClick={() => navigate('/signup')}>Sign up now!</a>
         </div>

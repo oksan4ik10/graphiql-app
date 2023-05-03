@@ -3,6 +3,7 @@
 .signup_wrap {
   width: 95%;
   height: 95%;
+  margin: auto;
 }
 
 .signup_in_wrap {
@@ -16,6 +17,7 @@
 }
 
 .signup_signin {
+  margin-top: 5px;
   user-select: none;
 }
 
