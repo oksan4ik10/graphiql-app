@@ -14,6 +14,7 @@ const passwErrorTextOpts = {
   letter: 'Password must have at least 1 letter.',
   num: 'Password must have at least 1 number.',
   special: 'Password must have at least 1 special character.',
+  different: 'Please confirm your password.',
 };
 
 export const signupInputsSlice = createSlice({
@@ -54,6 +55,9 @@ export const signupInputsSlice = createSlice({
           break;
         case 'special':
           state.passError = passwErrorTextOpts.special;
+          break;
+        case 'different':
+          state.passError = passwErrorTextOpts.different;
           break;
       }
     },

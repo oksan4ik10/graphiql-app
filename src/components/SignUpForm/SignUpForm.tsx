@@ -27,14 +27,14 @@ export default function SignUpForm() {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  const inputName = useAppSelector((state) => state.signupInputsReducer.name_);
-  const inputEmail = useAppSelector((state) => state.signupInputsReducer.email);
-  const inputPass = useAppSelector((state) => state.signupInputsReducer.password);
-  const inputConfirmPass = useAppSelector((state) => state.signupInputsReducer.confirmPass);
-  const errorName = useAppSelector((state) => state.signupErrorsReducer.isNameError);
-  const errorEmail = useAppSelector((state) => state.signupErrorsReducer.isEmailError);
-  const errorPassword = useAppSelector((state) => state.signupErrorsReducer.isPasswordError);
-  const errorPassText = useAppSelector((state) => state.signupInputsReducer.passError);
+  const inputName = useAppSelector<string>((state) => state.signupInputsReducer.name_);
+  const inputEmail = useAppSelector<string>((state) => state.signupInputsReducer.email);
+  const inputPass = useAppSelector<string>((state) => state.signupInputsReducer.password);
+  const inputConfirmPass = useAppSelector<string>((state) => state.signupInputsReducer.confirmPass);
+  const errorName = useAppSelector<boolean>((state) => state.signupErrorsReducer.isNameError);
+  const errorEmail = useAppSelector<boolean>((state) => state.signupErrorsReducer.isEmailError);
+  const errorPassword = useAppSelector<boolean>((state) => state.signupErrorsReducer.isPasswordError);
+  const errorPassText = useAppSelector<string>((state) => state.signupInputsReducer.passError);
 
   const [clicked, setClicked] = useState(false);
 
@@ -136,6 +136,9 @@ export default function SignUpForm() {
     } else if (!inputPass.match(/^(?=.*[!#$%&? "])/)) {
       if (!errorPassword) dispatch(updatePasswordError(true));
       dispatch(updatePassErrorText('special'));
+    } else if (inputPass !== inputConfirmPass) {
+      if (!errorPassword) dispatch(updatePasswordError(true));
+      dispatch(updatePassErrorText('different'));
     } else {
       if (errorPassword) dispatch(updatePasswordError(false));
       dispatch(updatePassErrorText('initial'));
