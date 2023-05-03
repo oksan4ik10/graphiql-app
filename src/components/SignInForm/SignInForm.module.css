@@ -20,6 +20,10 @@
   user-select: none;
 }
 
+.signin_forgot {
+  display: block;
+}
+
 @media (max-width: 450px) {
 
   .signup_in_wrap {
