@@ -33,7 +33,9 @@ export default function SignUpForm() {
   const inputConfirmPass = useAppSelector<string>((state) => state.signupInputsReducer.confirmPass);
   const errorName = useAppSelector<boolean>((state) => state.signupErrorsReducer.isNameError);
   const errorEmail = useAppSelector<boolean>((state) => state.signupErrorsReducer.isEmailError);
-  const errorPassword = useAppSelector<boolean>((state) => state.signupErrorsReducer.isPasswordError);
+  const errorPassword = useAppSelector<boolean>(
+    (state) => state.signupErrorsReducer.isPasswordError
+  );
   const errorPassText = useAppSelector<string>((state) => state.signupInputsReducer.passError);
 
   const [clicked, setClicked] = useState(false);
