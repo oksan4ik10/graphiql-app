@@ -12,7 +12,7 @@ export const modalReducerSlice = createSlice({
     errText: '',
   } as IModalState,
   reducers: {
-    isDisplay: (state, action: PayloadAction<boolean>) => {
+    setIsDisplay: (state, action: PayloadAction<boolean>) => {
       state.display = action.payload;
     },
     setErrText: (state, action: PayloadAction<string>) => {
@@ -21,6 +21,6 @@ export const modalReducerSlice = createSlice({
   },
 });
 
-export const { isDisplay, setErrText } = modalReducerSlice.actions;
+export const { setIsDisplay, setErrText } = modalReducerSlice.actions;
 
 export default modalReducerSlice.reducer;

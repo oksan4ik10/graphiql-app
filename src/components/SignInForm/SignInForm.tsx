@@ -21,10 +21,15 @@ import {
 } from '../../store/reducers/signinErrorsReducer';
 import sendPasswordReset from '../../firebase/emailPassword/resetPassword';
 import returnToDefaultState from '../../store/returnToDefaultState';
+import { Modal } from '../Utils/Modal/Modal';
+import { setErrText, setIsDisplay } from '../../store/reducers/modalReducer';
 
 export default function SignInForm() {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
+
+  const isModalDisplayed = useAppSelector<boolean>((state) => state.modalReducer.display);
+  const modalErrorText = useAppSelector<string>((state) => state.modalReducer.errText);
 
   useEffect(() => {
     if (loading) return;
@@ -48,7 +53,26 @@ export default function SignInForm() {
   useEffect(() => {
     if (emailDidMount.current && passDidMount.current) {
       if (!errorEmail && !errorPassword && clicked) {
-        logInWithEmailAndPassword(inputEmail, inputPass).then(() => returnToDefaultState());
+        logInWithEmailAndPassword(inputEmail, inputPass).then((data) => {
+          console.log(data)
+          if (data && data.includes("auth/user-not-found")){
+            dispatch(setErrText("Email not found. Please check the email you used."));
+            dispatch(setIsDisplay(true));
+            setClicked(false);
+            return;
+          } else if (data && data.includes("auth/wrong-password")){
+            dispatch(setErrText("Incorrect password. Please check the password you used."));
+            dispatch(setIsDisplay(true));
+            setClicked(false);
+            return;
+          }  else if (data && data.includes("Error")){
+            dispatch(setErrText("Please try again."));
+            dispatch(setIsDisplay(true));
+            setClicked(false);
+            return;
+          }
+          returnToDefaultState();
+        })
       }
     }
   }, [clicked]);
@@ -134,41 +158,48 @@ export default function SignInForm() {
     validatePassword();
   };
 
+  const closeModal = () => {
+    dispatch(setIsDisplay(false));
+  }
+
   return (
-    <div className={styles.signin_wrap}>
-      <form className={styles.signin_in_wrap} onSubmit={(e) => handeSubmit(e)}>
-        <InputWithError
-          type="text"
-          placeholder="Your Email"
-          value={inputEmail}
-          onChange={(e) => handleChange('email', e.target.value)}
-          isError={errorEmail}
-          errorText="Please specify correct email."
-        />
-        <InputWithError
-          type="text"
-          placeholder="Your Password"
-          value={inputPass}
-          onChange={(e) => handleChange('password', e.target.value)}
-          isError={errorPassword}
-          errorText={errorPassText}
-        />
-        <Button buttonType="submit" buttonText="Sign In" buttonWidth="80%" />
-        <Button
-          func={() => {
-            signInWithGoogle().then(() => returnToDefaultState());
-          }}
-          buttonType="button"
-          buttonText="Sign In with Google"
-          buttonWidth="80%"
-        />
-        <a className={styles.signin_forgot} onClick={resetPassword}>
-          Forgot password?
-        </a>
-        <div className={styles.signup_signin}>
-          {"Don't have an account?"} <a onClick={() => navigate('/signup')}>Sign up now!</a>
-        </div>
-      </form>
-    </div>
+    <>
+      {isModalDisplayed && <Modal modalFunc={closeModal}><div className={styles.modal_error}>There was an error.</div><div>{modalErrorText}</div></Modal>}
+      <div className={styles.signin_wrap}>
+        <form className={styles.signin_in_wrap} onSubmit={(e) => handeSubmit(e)}>
+          <InputWithError
+            type="text"
+            placeholder="Your Email"
+            value={inputEmail}
+            onChange={(e) => handleChange('email', e.target.value)}
+            isError={errorEmail}
+            errorText="Please specify correct email."
+          />
+          <InputWithError
+            type="text"
+            placeholder="Your Password"
+            value={inputPass}
+            onChange={(e) => handleChange('password', e.target.value)}
+            isError={errorPassword}
+            errorText={errorPassText}
+          />
+          <Button buttonType="submit" buttonText="Sign In" buttonWidth="80%" />
+          <Button
+            func={() => {
+              signInWithGoogle().then(() => returnToDefaultState());
+            }}
+            buttonType="button"
+            buttonText="Sign In with Google"
+            buttonWidth="80%"
+          />
+          <a className={styles.signin_forgot} onClick={resetPassword}>
+            Forgot password?
+          </a>
+          <div className={styles.signup_signin}>
+            {"Don't have an account?"} <a onClick={() => navigate('/signup')}>Sign up now!</a>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }

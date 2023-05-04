@@ -6,6 +6,6 @@ export default async function logInWithEmailAndPassword(email: string, password:
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
-    console.log('the rrror is', (err as Error).name);
+    return (err as Error).message;
   }
 }

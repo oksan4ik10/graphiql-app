@@ -25,6 +25,11 @@
   display: block;
 }
 
+.modal_error {
+  margin: 1rem auto;
+  font-weight: 700;
+}
+
 @media (max-width: 450px) {
 
   .signin_in_wrap {
