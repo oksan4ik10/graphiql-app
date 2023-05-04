@@ -7,6 +7,7 @@ import signupErrorsReducer from './reducers/signupErrorsReducer';
 import signinInputsReducer from './reducers/signinInputsReducer';
 import signinErrorsReducer from './reducers/signinErrorsReducer';
 import codeEditReducer from './reducers/codeEditReducer';
+import { countryAPI } from './reducers/api/CountryApiReducer';
 
 export const combinedReducer = combineReducers({
   signupInputsReducer,
@@ -14,6 +15,7 @@ export const combinedReducer = combineReducers({
   signinInputsReducer,
   signinErrorsReducer,
   codeEditReducer,
+  [countryAPI.reducerPath]: countryAPI.reducer,
 });
 
 export type ICombinedReducerState = ReturnType<typeof combinedReducer>;
@@ -27,6 +29,7 @@ const rootReducer: Reducer = (state: ICombinedReducerState, action: AnyAction) =
 
 const store = configureStore({
   reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(countryAPI.middleware),
 });
 
 export type IRootState = ReturnType<typeof store.getState>;
