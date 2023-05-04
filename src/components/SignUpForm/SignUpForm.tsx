@@ -33,7 +33,9 @@ export default function SignUpForm() {
   const inputConfirmPass = useAppSelector<string>((state) => state.signupInputsReducer.confirmPass);
   const errorName = useAppSelector<boolean>((state) => state.signupErrorsReducer.isNameError);
   const errorEmail = useAppSelector<boolean>((state) => state.signupErrorsReducer.isEmailError);
-  const errorPassword = useAppSelector<boolean>((state) => state.signupErrorsReducer.isPasswordError);
+  const errorPassword = useAppSelector<boolean>(
+    (state) => state.signupErrorsReducer.isPasswordError
+  );
   const errorPassText = useAppSelector<string>((state) => state.signupInputsReducer.passError);
 
   const [clicked, setClicked] = useState(false);
@@ -188,7 +190,7 @@ export default function SignUpForm() {
           value={inputConfirmPass}
           onChange={(e) => handleChange('confirmPass', e.target.value)}
         />
-        <Button buttonType="submit" buttonText="Sign Up" buttonWidth="84%" />
+        <Button buttonType="submit" buttonText="Sign Up" buttonWidth="80%" />
         <div className={styles.signup_signin}>
           Already have an account? <a onClick={() => navigate('/signin')}>Sign in now!</a>
         </div>

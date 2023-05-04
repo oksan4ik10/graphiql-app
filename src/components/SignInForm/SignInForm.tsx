@@ -35,7 +35,9 @@ export default function SignInForm() {
   const inputEmail = useAppSelector<string>((state) => state.signinInputsReducer.email);
   const inputPass = useAppSelector<string>((state) => state.signinInputsReducer.password);
   const errorEmail = useAppSelector<boolean>((state) => state.signinErrorsReducer.isEmailError);
-  const errorPassword = useAppSelector<boolean>((state) => state.signinErrorsReducer.isPasswordError);
+  const errorPassword = useAppSelector<boolean>(
+    (state) => state.signinErrorsReducer.isPasswordError
+  );
   const errorPassText = useAppSelector<string>((state) => state.signinInputsReducer.passError);
 
   const [clicked, setClicked] = useState(false);
@@ -151,14 +153,14 @@ export default function SignInForm() {
           isError={errorPassword}
           errorText={errorPassText}
         />
-        <Button buttonType="submit" buttonText="Sign In" buttonWidth="84%" />
+        <Button buttonType="submit" buttonText="Sign In" buttonWidth="80%" />
         <Button
           func={() => {
             signInWithGoogle().then(() => returnToDefaultState());
           }}
           buttonType="button"
           buttonText="Sign In with Google"
-          buttonWidth="84%"
+          buttonWidth="80%"
         />
         <a className={styles.signin_forgot} onClick={resetPassword}>
           Forgot password?
