@@ -1,0 +1,8 @@
+.docs__window {
+    background: rgba(0, 255, 106, 0.329);
+    /* width: 0;
+    opacity: 0; */
+    height: calc(100vh - 60px - 60px);
+    width: 20vw;
+    transform: translateX(-110%);
+}
