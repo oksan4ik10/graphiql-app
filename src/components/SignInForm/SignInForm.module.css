@@ -26,8 +26,10 @@
 }
 
 .modal_error {
+  white-space: pre-line;
   margin: 1rem auto;
-  font-weight: 700;
+  font-weight: 600;
+  line-height: 2
 }
 
 @media (max-width: 450px) {

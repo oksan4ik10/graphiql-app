@@ -21,6 +21,11 @@
   user-select: none;
 }
 
+.modal_error {
+  margin: 1rem auto;
+  font-weight: 600;
+}
+
 @media (max-width: 450px) {
 
   .signup_in_wrap {

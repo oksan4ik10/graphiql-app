@@ -53,18 +53,25 @@ export default function SignInForm() {
     if (emailDidMount.current && passDidMount.current) {
       if (!errorEmail && !errorPassword && clicked) {
         logInWithEmailAndPassword(inputEmail, inputPass).then((data) => {
-          if (data && data.includes('auth/user-not-found')) {
-            signInErrorText.current = 'Email not found. Please check the email you used.';
+          console.log(data);
+          if (
+            data &&
+            (data.includes('auth/user-not-found') || data.includes('auth/invalid-email'))
+          ) {
+            signInErrorText.current = `There was en error. 
+            Email not found. Please check the email you used.`;
             setIsModal(true);
             setClicked(false);
             return;
           } else if (data && data.includes('auth/wrong-password')) {
-            signInErrorText.current = 'Incorrect password. Please check the password you used.';
+            signInErrorText.current = `There was en error. 
+            Incorrect password. Please check the password you used.`;
             setIsModal(true);
             setClicked(false);
             return;
-          } else if (data && data.includes('Error')) {
-            signInErrorText.current = 'Please try again.';
+          } else if (data && (data.includes('Error') || data.includes('auth/too-many-requests'))) {
+            signInErrorText.current = `There was en error. 
+            Please try again later.`;
             setIsModal(true);
             setClicked(false);
             return;
@@ -164,8 +171,7 @@ export default function SignInForm() {
     <>
       {isModal && (
         <Modal modalFunc={closeModal}>
-          <div className={styles.modal_error}>There was an error.</div>
-          <div>{signInErrorText.current}</div>
+          <div className={styles.modal_error}>{signInErrorText.current}</div>
         </Modal>
       )}
       <div className={styles.signin_wrap}>
