@@ -1,17 +1,9 @@
-import CodeMirror from '@uiw/react-codemirror';
-import { ChangeEvent } from 'react';
-
-import { useAppDispatch, useAppSelector } from '../../store/store';
-import { codeEditorSlice } from '../../store/reducers/codeEditReducer';
 import { countryAPI } from '../../store/reducers/api/CountryApiReducer';
+import CodeEditor from '../Utils/CodeEditor/CodeEditor';
 
 import style from './Editor.module.css';
 
 export default function Editor() {
-  const { strCode } = useAppSelector((state) => state.codeEditReducer);
-  const dispatch = useAppDispatch();
-  const { saveCode } = codeEditorSlice.actions;
-
   const [getPlayEditor] = countryAPI.useLazyFetchGetDateCountriesQuery();
 
   const strCodeExample = `query GetCountry {
@@ -27,11 +19,7 @@ export default function Editor() {
       }
     }
   }`;
-  function changeInput(e: ChangeEvent<HTMLInputElement>) {
-    const text = e.target.outerText;
-    dispatch(saveCode(text));
-    console.log(strCode);
-  }
+
   async function playCode() {
     const t = await getPlayEditor({ strCode: strCodeExample });
     if (t.data) {
@@ -43,17 +31,7 @@ export default function Editor() {
 
   return (
     <div className={style.codeMirror}>
-      <CodeMirror
-        value={strCode}
-        height="60vh"
-        basicSetup={{
-          foldGutter: false,
-          dropCursor: false,
-          allowMultipleSelections: false,
-          indentOnInput: false,
-        }}
-        onInput={changeInput}
-      />
+      <CodeEditor typeEditor="strCode" height="60vh"></CodeEditor>
       <button onClick={playCode}>Click</button>
     </div>
   );
