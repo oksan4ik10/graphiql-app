@@ -53,7 +53,6 @@ export default function SignInForm() {
     if (emailDidMount.current && passDidMount.current) {
       if (!errorEmail && !errorPassword && clicked) {
         logInWithEmailAndPassword(inputEmail, inputPass).then((data) => {
-          console.log(data);
           if (
             data &&
             (data.includes('auth/user-not-found') || data.includes('auth/invalid-email'))
@@ -149,9 +148,19 @@ export default function SignInForm() {
     }
   };
 
-  //TODO
   const resetPassword = () => {
-    sendPasswordReset(inputEmail);
+    if (!errorEmail) {
+      sendPasswordReset(inputEmail).then((data) => {
+        if (data && data.includes('Error')) {
+          signInErrorText.current = `Email not found. 
+          Please check the email you used.`;
+          setIsModal(true);
+          return;
+        }
+        signInErrorText.current = `Reset passsword link is sent to your email.`;
+        setIsModal(true);
+      });
+    }
   };
 
   const handeSubmit = (e: FormEvent) => {
