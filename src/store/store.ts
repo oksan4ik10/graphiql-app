@@ -7,7 +7,6 @@ import signupErrorsReducer from './reducers/signupErrorsReducer';
 import signinInputsReducer from './reducers/signinInputsReducer';
 import signinErrorsReducer from './reducers/signinErrorsReducer';
 import codeEditReducer from './reducers/codeEditReducer';
-import modalReducer from './reducers/modalReducer';
 import docsIsOpenReducer from './reducers/docsIsOpenReducer';
 import { countryAPI } from './reducers/api/CountryApiReducer';
 
@@ -17,7 +16,6 @@ export const combinedReducer = combineReducers({
   signinInputsReducer,
   signinErrorsReducer,
   codeEditReducer,
-  modalReducer,
   docsIsOpenReducer,
   [countryAPI.reducerPath]: countryAPI.reducer,
 });

@@ -22,14 +22,13 @@ import {
 import sendPasswordReset from '../../firebase/emailPassword/resetPassword';
 import returnToDefaultState from '../../store/returnToDefaultState';
 import { Modal } from '../Utils/Modal/Modal';
-import { setErrText, setIsDisplay } from '../../store/reducers/modalReducer';
 
 export default function SignInForm() {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
-  const isModalDisplayed = useAppSelector<boolean>((state) => state.modalReducer.display);
-  const modalErrorText = useAppSelector<string>((state) => state.modalReducer.errText);
+  const [isModal, setIsModal] = useState(false);
+  const signInErrorText = useRef<string>("");
 
   useEffect(() => {
     if (loading) return;
@@ -55,18 +54,18 @@ export default function SignInForm() {
       if (!errorEmail && !errorPassword && clicked) {
         logInWithEmailAndPassword(inputEmail, inputPass).then((data) => {
           if (data && data.includes("auth/user-not-found")){
-            dispatch(setErrText("Email not found. Please check the email you used."));
-            dispatch(setIsDisplay(true));
+            signInErrorText.current = "Email not found. Please check the email you used.";
+            setIsModal(true);
             setClicked(false);
             return;
           } else if (data && data.includes("auth/wrong-password")){
-            dispatch(setErrText("Incorrect password. Please check the password you used."));
-            dispatch(setIsDisplay(true));
+            signInErrorText.current = "Incorrect password. Please check the password you used.";
+            setIsModal(true);
             setClicked(false);
             return;
           }  else if (data && data.includes("Error")){
-            dispatch(setErrText("Please try again."));
-            dispatch(setIsDisplay(true));
+            signInErrorText.current = "Please try again.";
+            setIsModal(true);
             setClicked(false);
             return;
           }
@@ -158,12 +157,12 @@ export default function SignInForm() {
   };
 
   const closeModal = () => {
-    dispatch(setIsDisplay(false));
+    setIsModal(false);
   }
 
   return (
     <>
-      {isModalDisplayed && <Modal modalFunc={closeModal}><div className={styles.modal_error}>There was an error.</div><div>{modalErrorText}</div></Modal>}
+      {isModal && <Modal modalFunc={closeModal}><div className={styles.modal_error}>There was an error.</div><div>{signInErrorText.current}</div></Modal>}
       <div className={styles.signin_wrap}>
         <form className={styles.signin_in_wrap} onSubmit={(e) => handeSubmit(e)}>
           <InputWithError
