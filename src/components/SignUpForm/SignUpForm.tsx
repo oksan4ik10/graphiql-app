@@ -21,10 +21,13 @@ import {
   updateNameError,
   updatePasswordError,
 } from '../../store/reducers/signupErrorsReducer';
+import { Modal } from '../Utils/Modal/Modal';
 
 export default function SignUpForm() {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
+
+  const [isModal, setIsModal] = useState(false);
 
   const dispatch = useAppDispatch();
   const inputName = useAppSelector<string>((state) => state.signupInputsReducer.name_);
@@ -47,7 +50,12 @@ export default function SignUpForm() {
   useEffect(() => {
     if (nameDidMount.current && emailDidMount.current && passDidMount.current) {
       if (!errorName && !errorEmail && !errorPassword && clicked) {
-        registerWithEmailAndPassword(inputName, inputEmail, inputPass);
+        registerWithEmailAndPassword(inputName, inputEmail, inputPass).then((data) => {
+          if (data && data.includes('Error')) {
+            setIsModal(true);
+            setClicked(false);
+          }
+        });
       }
     }
   }, [clicked]);
@@ -91,7 +99,6 @@ export default function SignUpForm() {
     }
   };
 
-  // validation logic
   const validateName = () => {
     if (inputName.length < 1 || !inputName.match(/^[a-zA-Zа-яА-Я \-]+$/)) {
       dispatch(updateNameError(true));
@@ -157,44 +164,56 @@ export default function SignUpForm() {
     validatePassword();
   };
 
+  const closeModal = () => {
+    setIsModal(false);
+  };
+
   return (
-    <div className={styles.signup_wrap}>
-      <form className={styles.signup_in_wrap} onSubmit={(e) => handeSubmit(e)}>
-        <InputWithError
-          type="text"
-          placeholder="Your Name"
-          value={inputName}
-          onChange={(e) => handleChange('name_', e.target.value)}
-          isError={errorName}
-          errorText="Please specify your name."
-        />
-        <InputWithError
-          type="text"
-          placeholder="Your Email"
-          value={inputEmail}
-          onChange={(e) => handleChange('email', e.target.value)}
-          isError={errorEmail}
-          errorText="Please specify correct email."
-        />
-        <InputWithError
-          type="text"
-          placeholder="Your Password"
-          value={inputPass}
-          onChange={(e) => handleChange('password', e.target.value)}
-          isError={errorPassword}
-          errorText={errorPassText}
-        />
-        <InputWithError
-          type="text"
-          placeholder="Confirm Password"
-          value={inputConfirmPass}
-          onChange={(e) => handleChange('confirmPass', e.target.value)}
-        />
-        <Button buttonType="submit" buttonText="Sign Up" buttonWidth="80%" />
-        <div className={styles.signup_signin}>
-          Already have an account? <a onClick={() => navigate('/signin')}>Sign in now!</a>
-        </div>
-      </form>
-    </div>
+    <>
+      {isModal && (
+        <Modal modalFunc={closeModal}>
+          <div className={styles.modal_error}>There was an error.</div>
+          <div>Please try again.</div>
+        </Modal>
+      )}
+      <div className={styles.signup_wrap}>
+        <form className={styles.signup_in_wrap} onSubmit={(e) => handeSubmit(e)}>
+          <InputWithError
+            type="text"
+            placeholder="Your Name"
+            value={inputName}
+            onChange={(e) => handleChange('name_', e.target.value)}
+            isError={errorName}
+            errorText="Please specify your name."
+          />
+          <InputWithError
+            type="text"
+            placeholder="Your Email"
+            value={inputEmail}
+            onChange={(e) => handleChange('email', e.target.value)}
+            isError={errorEmail}
+            errorText="Please specify correct email."
+          />
+          <InputWithError
+            type="text"
+            placeholder="Your Password"
+            value={inputPass}
+            onChange={(e) => handleChange('password', e.target.value)}
+            isError={errorPassword}
+            errorText={errorPassText}
+          />
+          <InputWithError
+            type="text"
+            placeholder="Confirm Password"
+            value={inputConfirmPass}
+            onChange={(e) => handleChange('confirmPass', e.target.value)}
+          />
+          <Button buttonType="submit" buttonText="Sign Up" buttonWidth="80%" />
+          <div className={styles.signup_signin}>
+            Already have an account? <a onClick={() => navigate('/signin')}>Sign in now!</a>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }

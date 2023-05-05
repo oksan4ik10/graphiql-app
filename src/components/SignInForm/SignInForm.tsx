@@ -28,7 +28,7 @@ export default function SignInForm() {
   const navigate = useNavigate();
 
   const [isModal, setIsModal] = useState(false);
-  const signInErrorText = useRef<string>("");
+  const signInErrorText = useRef<string>('');
 
   useEffect(() => {
     if (loading) return;
@@ -53,24 +53,24 @@ export default function SignInForm() {
     if (emailDidMount.current && passDidMount.current) {
       if (!errorEmail && !errorPassword && clicked) {
         logInWithEmailAndPassword(inputEmail, inputPass).then((data) => {
-          if (data && data.includes("auth/user-not-found")){
-            signInErrorText.current = "Email not found. Please check the email you used.";
+          if (data && data.includes('auth/user-not-found')) {
+            signInErrorText.current = 'Email not found. Please check the email you used.';
             setIsModal(true);
             setClicked(false);
             return;
-          } else if (data && data.includes("auth/wrong-password")){
-            signInErrorText.current = "Incorrect password. Please check the password you used.";
+          } else if (data && data.includes('auth/wrong-password')) {
+            signInErrorText.current = 'Incorrect password. Please check the password you used.';
             setIsModal(true);
             setClicked(false);
             return;
-          }  else if (data && data.includes("Error")){
-            signInErrorText.current = "Please try again.";
+          } else if (data && data.includes('Error')) {
+            signInErrorText.current = 'Please try again.';
             setIsModal(true);
             setClicked(false);
             return;
           }
           returnToDefaultState();
-        })
+        });
       }
     }
   }, [clicked]);
@@ -158,11 +158,16 @@ export default function SignInForm() {
 
   const closeModal = () => {
     setIsModal(false);
-  }
+  };
 
   return (
     <>
-      {isModal && <Modal modalFunc={closeModal}><div className={styles.modal_error}>There was an error.</div><div>{signInErrorText.current}</div></Modal>}
+      {isModal && (
+        <Modal modalFunc={closeModal}>
+          <div className={styles.modal_error}>There was an error.</div>
+          <div>{signInErrorText.current}</div>
+        </Modal>
+      )}
       <div className={styles.signin_wrap}>
         <form className={styles.signin_in_wrap} onSubmit={(e) => handeSubmit(e)}>
           <InputWithError

@@ -18,6 +18,6 @@ export default async function registerWithEmailAndPassword(
       email,
     });
   } catch (err) {
-    console.error(err);
+    return (err as Error).message;
   }
 }
