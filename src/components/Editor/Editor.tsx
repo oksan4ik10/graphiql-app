@@ -5,8 +5,6 @@ import { useAppDispatch, useAppSelector } from '../../store/store';
 import { codeEditorSlice } from '../../store/reducers/codeEditReducer';
 import { countryAPI } from '../../store/reducers/api/CountryApiReducer';
 
-import Button from '../Utils/Button/Button';
-import { Loader } from '../Loader/Loader';
 import style from './Editor.module.css';
 
 export default function Editor() {
@@ -14,30 +12,33 @@ export default function Editor() {
   const dispatch = useAppDispatch();
   const { saveCode } = codeEditorSlice.actions;
 
-  const { isLoading, data, error } = countryAPI.useFetchGetDateCountriesQuery({
-    strCode: `query GetCountry {
-      country(code: "BR") {
-        name
-        native
-        capital
-        emoji
-        currency
-        languages {
-          code
-          name
-        }
-      }
-    }`,
-  });
-  console.log(isLoading, data, error);
+  const [getPlayEditor] = countryAPI.useLazyFetchGetDateCountriesQuery();
 
+  const strCodeExample = `query GetCountry {
+    country(code: "BR") {
+      name
+      native
+      capital
+      emoji
+      currency
+      languages {
+        code
+        name
+      }
+    }
+  }`;
   function changeInput(e: ChangeEvent<HTMLInputElement>) {
     const text = e.target.outerText;
     dispatch(saveCode(text));
     console.log(strCode);
   }
-  function playCode() {
-    console.log(23);
+  async function playCode() {
+    const t = await getPlayEditor({ strCode: strCodeExample });
+    if (t.data) {
+      if (t.data.data) {
+        console.log(t.data.data);
+      }
+    }
   }
 
   return (
@@ -53,8 +54,7 @@ export default function Editor() {
         }}
         onInput={changeInput}
       />
-      <Button func={playCode} buttonType="button" buttonText="&#9658;" buttonWidth="100%" />
-      {isLoading && <Loader />}
+      <button onClick={playCode}>Click</button>
     </div>
   );
 }
