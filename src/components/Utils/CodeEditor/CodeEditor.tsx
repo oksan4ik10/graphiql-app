@@ -20,7 +20,6 @@ export default function CodeEditor(props: IPropsEditor) {
     if (typeEditor === 'header') dispatch(saveHeader(text));
     else if (typeEditor === 'variables') dispatch(saveVariables(text));
     else dispatch(saveCode(text));
-    console.log(strCode);
   }
 
   return (

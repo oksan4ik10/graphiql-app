@@ -4,3 +4,34 @@
     gap: 10px;
     
 }
+
+.tabs {
+    position: relative;
+   }
+   .tab, .tab_title {
+    display: inline-block;
+   }
+   .tab input[type="radio"] { display: none; }
+   .tab_title {
+    background: #ccc;
+    padding: 5px 10px;
+    border: 1px solid #666;
+    border-bottom: none;
+   }
+   .tab_content {
+    position: absolute;
+    border: 1px solid #666;
+    padding: 10px;
+    left: 0; 
+    width: calc(100% - 20px);
+    display: none;
+   }
+   .tab :checked + .tab_title {
+    position: relative;
+    background: #fff;
+    top: 1px;
+    z-index: 1;
+   }
+   .tab :checked ~ .tab_content {
+    display: block;
+   }
