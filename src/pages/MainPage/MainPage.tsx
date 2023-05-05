@@ -1,7 +1,8 @@
 import styles from './MainPage.module.css';
-import Editor from '../../components/Editor/Editor';
+
 import Docs from '../../components/Docs/Docs';
 import ControlPanel from '../../components/ControlPanel/ControlPanel';
+import EditorAndResponse from '../../components/EditorAndResponse/EditorAndResponse';
 // import { useState } from 'react';
 
 export default function MainPage() {
@@ -14,8 +15,7 @@ export default function MainPage() {
       </div> */}
       <ControlPanel></ControlPanel>
       <Docs></Docs>
-      <Editor></Editor>
-      <h2>Ответ сервера</h2>
+      <EditorAndResponse />
     </div>
   );
 }

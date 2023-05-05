@@ -1,36 +1,17 @@
-import { countryAPI } from '../../store/reducers/api/CountryApiReducer';
 import CodeEditor from '../Utils/CodeEditor/CodeEditor';
-import { useAppSelector } from '../../store/store';
 
 import style from './Editor.module.css';
 
-export default function Editor() {
-  const [getPlayEditor] = countryAPI.useLazyFetchGetDateCountriesQuery();
+interface IEditorProps {
+  buttonFunc: () => void;
+  //СТРОКА НИЖЕ - ПРОП НА ВРЕМЯ ТЕСТИРОВАНИЯ
+  testStrCode: object;
+}
 
-  const { strCode } = useAppSelector((state) => state.codeEditReducer);
-
-  const strCodeExample = `query GetCountry {
-    country(code: "BR") {
-      name
-      native
-      capital
-      emoji
-      currency
-      languages {
-        code
-        name
-      }
-    }
-  }`;
-
-  async function playCode() {
-    const t = await getPlayEditor({ strCode: strCodeExample });
-    if (t.data) {
-      if (t.data.data) {
-        console.log(t.data.data);
-      }
-    }
-  }
+export default function Editor({ buttonFunc, testStrCode }: IEditorProps) {
+  const playCode = () => {
+    buttonFunc();
+  };
 
   return (
     <div className={style.codeMirror}>
@@ -49,14 +30,14 @@ export default function Editor() {
         <div className={style.tab}>
           <input type="radio" id="tab2" name="tab-group" onChange={() => {}} />
           <label htmlFor="tab2" className={style.tab_title}>
-            Header
+            Headers
           </label>
           <section className={style.tab_content}>
             <CodeEditor typeEditor="header" height="50px"></CodeEditor>
           </section>
         </div>
       </div>
-      <h4>Code:{strCode}</h4>
+      <h4>Code:{testStrCode.toString()}</h4>
     </div>
   );
 }

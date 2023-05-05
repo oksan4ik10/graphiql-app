@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-export interface IInputSerach {
+export interface IInputSearch {
   strCode: string;
   variables: string;
   header: string;
 }
-const initialState: IInputSerach = {
+const initialState: IInputSearch = {
   strCode: '',
   variables: '',
   header: '',
