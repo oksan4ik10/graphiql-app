@@ -1,60 +1,62 @@
-import CodeMirror from '@uiw/react-codemirror';
-import { ChangeEvent } from 'react';
-
-import { useAppDispatch, useAppSelector } from '../../store/store';
-import { codeEditorSlice } from '../../store/reducers/codeEditReducer';
 import { countryAPI } from '../../store/reducers/api/CountryApiReducer';
+import CodeEditor from '../Utils/CodeEditor/CodeEditor';
+import { useAppSelector } from '../../store/store';
 
-import Button from '../Utils/Button/Button';
-import { Loader } from '../Loader/Loader';
 import style from './Editor.module.css';
 
 export default function Editor() {
+  const [getPlayEditor] = countryAPI.useLazyFetchGetDateCountriesQuery();
+
   const { strCode } = useAppSelector((state) => state.codeEditReducer);
-  const dispatch = useAppDispatch();
-  const { saveCode } = codeEditorSlice.actions;
 
-  const { isLoading, data, error } = countryAPI.useFetchGetDateCountriesQuery({
-    strCode: `query GetCountry {
-      country(code: "BR") {
+  const strCodeExample = `query GetCountry {
+    country(code: "BR") {
+      name
+      native
+      capital
+      emoji
+      currency
+      languages {
+        code
         name
-        native
-        capital
-        emoji
-        currency
-        languages {
-          code
-          name
-        }
       }
-    }`,
-  });
-  console.log(isLoading, data, error);
+    }
+  }`;
 
-  function changeInput(e: ChangeEvent<HTMLInputElement>) {
-    const text = e.target.outerText;
-    dispatch(saveCode(text));
-    console.log(strCode);
-  }
-  function playCode() {
-    console.log(23);
+  async function playCode() {
+    const t = await getPlayEditor({ strCode: strCodeExample });
+    if (t.data) {
+      if (t.data.data) {
+        console.log(t.data.data);
+      }
+    }
   }
 
   return (
     <div className={style.codeMirror}>
-      <CodeMirror
-        value={strCode}
-        height="60vh"
-        basicSetup={{
-          foldGutter: false,
-          dropCursor: false,
-          allowMultipleSelections: false,
-          indentOnInput: false,
-        }}
-        onInput={changeInput}
-      />
-      <Button func={playCode} buttonType="button" buttonText="&#9658;" buttonWidth="100%" />
-      {isLoading && <Loader />}
+      <CodeEditor typeEditor="strCode" height="60vh"></CodeEditor>
+      <button onClick={playCode}>Click</button>
+      <div className={style.tabs}>
+        <div className={style.tab}>
+          <input type="radio" id="tab1" name="tab-group" checked onChange={() => {}} />
+          <label htmlFor="tab1" className={style.tab_title}>
+            Variables
+          </label>
+          <section className={style.tab_content}>
+            <CodeEditor typeEditor="variables" height="50px"></CodeEditor>
+          </section>
+        </div>
+        <div className={style.tab}>
+          <input type="radio" id="tab2" name="tab-group" onChange={() => {}} />
+          <label htmlFor="tab2" className={style.tab_title}>
+            Header
+          </label>
+          <section className={style.tab_content}>
+            <CodeEditor typeEditor="header" height="50px"></CodeEditor>
+          </section>
+        </div>
+      </div>
+      <h4>Code:{strCode}</h4>
     </div>
   );
 }
