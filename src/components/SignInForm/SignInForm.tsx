@@ -54,7 +54,6 @@ export default function SignInForm() {
     if (emailDidMount.current && passDidMount.current) {
       if (!errorEmail && !errorPassword && clicked) {
         logInWithEmailAndPassword(inputEmail, inputPass).then((data) => {
-          console.log(data)
           if (data && data.includes("auth/user-not-found")){
             dispatch(setErrText("Email not found. Please check the email you used."));
             dispatch(setIsDisplay(true));
