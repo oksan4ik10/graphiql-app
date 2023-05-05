@@ -39,7 +39,6 @@ export type IRootDispatch = typeof store.dispatch;
 
 type IDispatchFunc = () => IRootDispatch;
 
-// использовать useAppDispatch и useAppSelector как использовались бы useDispatch и useSelector
 export const useAppDispatch: IDispatchFunc = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<IRootState> = useSelector;
 

@@ -8,7 +8,7 @@
 
 .signin_in_wrap {
   width: 35%;
-  padding: 5%;
+  padding: 5% 2%;
   min-width: 350px;
   max-width: 500px;
   margin: auto;
@@ -23,6 +23,13 @@
 
 .signin_forgot {
   display: block;
+}
+
+.modal_error {
+  white-space: pre-line;
+  margin: 1rem auto;
+  font-weight: 600;
+  line-height: 2
 }
 
 @media (max-width: 450px) {

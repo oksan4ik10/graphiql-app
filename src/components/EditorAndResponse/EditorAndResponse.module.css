@@ -1,0 +1,4 @@
+.edit_resp_wraper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

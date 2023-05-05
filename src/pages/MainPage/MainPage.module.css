@@ -5,8 +5,8 @@
 .main__container{
   min-width: 100%;
   display: grid;
-  grid-template-columns: auto auto 1fr 1fr;
+  grid-template-columns: auto auto 1fr;
   justify-content: space-between;
   align-content: space-between;
-  grid-gap:10px;
+  grid-gap: 10px;
 }
