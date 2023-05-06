@@ -44,7 +44,7 @@ export function App() {
             <Route path="/signin" element={<SignInPage />} />
           )}
           {!user ? (
-            <Route path="/main" element={<Navigate to="/signin" replace />} />
+            <Route path="/main" element={<Navigate to="/" replace />} />
           ) : (
             <Route path="/main" element={<MainPage />} />
           )}
