@@ -1,5 +1,14 @@
 import styles from './Docs.module.css';
 import { useAppSelector } from '../../store/store';
+import { getIntrospectionQuery, buildClientSchema } from 'graphql/utilities';
+
+fetch('https://countries.trevorblades.com', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ query: getIntrospectionQuery() }),
+})
+  .then((res) => res.json())
+  .then((res) => console.log(buildClientSchema(res.data)));
 
 export default function Docs() {
   const docsIsOpen = useAppSelector<boolean>((state) => state.docsIsOpenReducer.docsIsOpen);
