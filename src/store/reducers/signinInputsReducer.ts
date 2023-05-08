@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import i18n from '../../localization/i18next';
 
 interface IInputsState {
   email: string;
@@ -8,10 +9,10 @@ interface IInputsState {
 
 const passwErrorTextOpts = {
   initial: '',
-  length: 'Password must have at least 8 characters.',
-  letter: 'Password must have at least 1 letter.',
-  num: 'Password must have at least 1 number.',
-  special: 'Password must have at least 1 special character.',
+  length: i18n.t('err pass length'),
+  letter: i18n.t('err pass letter'),
+  num: i18n.t('err pass num'),
+  special: i18n.t('err pass special'),
 };
 
 export const signinInputsSlice = createSlice({

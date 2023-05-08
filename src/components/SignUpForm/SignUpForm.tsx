@@ -142,7 +142,7 @@ export default function SignUpForm() {
     } else if (!inputPass.match(/^(?=.*\d)/)) {
       if (!errorPassword) dispatch(updatePasswordError(true));
       dispatch(updatePassErrorText('num'));
-    } else if (!inputPass.match(/^(?=.*[!#$%&? "])/)) {
+    } else if (!inputPass.match(/^(?=.*[!#$*_@^()\-+=%&? "])/)) {
       if (!errorPassword) dispatch(updatePasswordError(true));
       dispatch(updatePassErrorText('special'));
     } else if (inputPass !== inputConfirmPass) {
