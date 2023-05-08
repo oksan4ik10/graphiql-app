@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useTranslation } from 'react-i18next';
 
 import styles from './SignInForm.module.css';
 
@@ -35,6 +36,8 @@ export default function SignInForm() {
     if (user) navigate('/main');
   }, [user, loading]);
 
+  const { t } = useTranslation();
+
   const dispatch = useAppDispatch();
   const inputEmail = useAppSelector<string>((state) => state.signinInputsReducer.email);
   const inputPass = useAppSelector<string>((state) => state.signinInputsReducer.password);
@@ -57,19 +60,19 @@ export default function SignInForm() {
             data &&
             (data.includes('auth/user-not-found') || data.includes('auth/invalid-email'))
           ) {
-            signInErrorText.current = `There was en error. 
+            signInErrorText.current = `${t('some error')} 
             Email not found. Please check the email you used.`;
             setIsModal(true);
             setClicked(false);
             return;
           } else if (data && data.includes('auth/wrong-password')) {
-            signInErrorText.current = `There was en error. 
+            signInErrorText.current = `${t('some error')} 
             Incorrect password. Please check the password you used.`;
             setIsModal(true);
             setClicked(false);
             return;
           } else if (data && (data.includes('Error') || data.includes('auth/too-many-requests'))) {
-            signInErrorText.current = `There was en error. 
+            signInErrorText.current = `${t('some error')} 
             Please try again later.`;
             setIsModal(true);
             setClicked(false);

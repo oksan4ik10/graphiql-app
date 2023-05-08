@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import CodeEditor from '../Utils/CodeEditor/CodeEditor';
 
 import style from './Editor.module.css';
@@ -9,6 +11,8 @@ interface IEditorProps {
 }
 
 export default function Editor({ buttonFunc, testStrCode }: IEditorProps) {
+  const { t } = useTranslation();
+
   const playCode = () => {
     buttonFunc();
   };
@@ -21,7 +25,7 @@ export default function Editor({ buttonFunc, testStrCode }: IEditorProps) {
         <div className={style.tab}>
           <input type="radio" id="tab1" name="tab-group" checked onChange={() => {}} />
           <label htmlFor="tab1" className={style.tab_title}>
-            Variables
+            {t('variables')}
           </label>
           <section className={style.tab_content}>
             <CodeEditor typeEditor="variables" height="50px"></CodeEditor>
@@ -30,7 +34,7 @@ export default function Editor({ buttonFunc, testStrCode }: IEditorProps) {
         <div className={style.tab}>
           <input type="radio" id="tab2" name="tab-group" onChange={() => {}} />
           <label htmlFor="tab2" className={style.tab_title}>
-            Headers
+            {t('headers')}
           </label>
           <section className={style.tab_content}>
             <CodeEditor typeEditor="header" height="50px"></CodeEditor>
