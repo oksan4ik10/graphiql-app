@@ -2,7 +2,6 @@ import { configureStore, AnyAction, Reducer } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-import '../localization/i18next';
 import signupInputsReducer from './reducers/signupInputsReducer';
 import signupErrorsReducer from './reducers/signupErrorsReducer';
 import signinInputsReducer from './reducers/signinInputsReducer';
