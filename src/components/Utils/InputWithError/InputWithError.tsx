@@ -3,13 +3,13 @@ import styles from './InputWithError.module.css';
 
 interface IInputWithErrorProps {
   type: string;
-  placeholder?: string;
+  placeholder?: string | null;
   legend?: string;
   reff?: React.RefObject<HTMLInputElement>;
   value?: string;
   specialStyle?: string;
   isError?: boolean;
-  errorText?: string;
+  errorText?: string | null;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -39,7 +39,7 @@ export default function InputWithError({
       {legend && <div>{legend}</div>}
       <input
         type={type}
-        placeholder={placeholder && placeholder}
+        placeholder={placeholder && placeholder || ""}
         ref={reff && reff}
         value={value && value}
         className={styles.input}

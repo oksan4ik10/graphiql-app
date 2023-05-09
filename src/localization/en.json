@@ -16,6 +16,7 @@
   "err pass confirm": "Please confirm your password.",
   "sign in google": "Sign In with Google",
   "sign in": "Sign In",
+  "sign in verb": "Sign In",
   "sign up": "Sign Up",
   "log out": "Log Out",
   "main": "Main",
@@ -33,5 +34,6 @@
   "variables": "Variables",
   "headers": "Headers",
   "docs": "Documentation",
-  "run":"Run"
+  "run":"Run",
+  "forgot pass": "Forgot password?"
 }
