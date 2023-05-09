@@ -32,5 +32,6 @@
   "welcome title": "Welcome!",
   "variables": "Variables",
   "headers": "Headers",
-  "docs": "Documentation"
+  "docs": "Documentation",
+  "run":"Run"
 }
