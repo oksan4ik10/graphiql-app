@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useTranslation } from 'react-i18next';
 
 import styles from './SignUpForm.module.css';
 
@@ -28,6 +29,8 @@ export default function SignUpForm() {
   const navigate = useNavigate();
 
   const [isModal, setIsModal] = useState(false);
+
+  const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
   const inputName = useAppSelector<string>((state) => state.signupInputsReducer.name_);
@@ -142,7 +145,7 @@ export default function SignUpForm() {
     } else if (!inputPass.match(/^(?=.*\d)/)) {
       if (!errorPassword) dispatch(updatePasswordError(true));
       dispatch(updatePassErrorText('num'));
-    } else if (!inputPass.match(/^(?=.*[!#$%&? "])/)) {
+    } else if (!inputPass.match(/^(?=.*[!#$*_@^()\-+=%&? "])/)) {
       if (!errorPassword) dispatch(updatePasswordError(true));
       dispatch(updatePassErrorText('special'));
     } else if (inputPass !== inputConfirmPass) {
@@ -172,45 +175,45 @@ export default function SignUpForm() {
     <>
       {isModal && (
         <Modal modalFunc={closeModal}>
-          <div className={styles.modal_error}>There was an error.</div>
-          <div>Please try again.</div>
+          <div className={styles.modal_error}>{t('some error')}</div>
+          <div>{t('try again')}</div>
         </Modal>
       )}
       <div className={styles.signup_wrap}>
         <form className={styles.signup_in_wrap} onSubmit={(e) => handeSubmit(e)}>
           <InputWithError
             type="text"
-            placeholder="Your Name"
+            placeholder={t('your name')}
             value={inputName}
             onChange={(e) => handleChange('name_', e.target.value)}
             isError={errorName}
-            errorText="Please specify your name."
+            errorText={t('err name')}
           />
           <InputWithError
             type="text"
-            placeholder="Your Email"
+            placeholder={t('your email')}
             value={inputEmail}
             onChange={(e) => handleChange('email', e.target.value)}
             isError={errorEmail}
-            errorText="Please specify correct email."
+            errorText={t('err email')}
           />
           <InputWithError
             type="text"
-            placeholder="Your Password"
+            placeholder={t('your pass')}
             value={inputPass}
             onChange={(e) => handleChange('password', e.target.value)}
             isError={errorPassword}
-            errorText={errorPassText}
+            errorText={t(errorPassText)}
           />
           <InputWithError
             type="text"
-            placeholder="Confirm Password"
+            placeholder={t('your confirm')}
             value={inputConfirmPass}
             onChange={(e) => handleChange('confirmPass', e.target.value)}
           />
-          <Button buttonType="submit" buttonText="Sign Up" buttonWidth="80%" />
+          <Button buttonType="submit" buttonText={t('sign up verb')} buttonWidth="80%" />
           <div className={styles.signup_signin}>
-            Already have an account? <a onClick={() => navigate('/signin')}>Sign in now!</a>
+            {t('yes acc')} <a onClick={() => navigate('/signin')}>{t('yes acc sign in')}</a>
           </div>
         </form>
       </div>

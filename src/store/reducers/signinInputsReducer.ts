@@ -8,10 +8,10 @@ interface IInputsState {
 
 const passwErrorTextOpts = {
   initial: '',
-  length: 'Password must have at least 8 characters.',
-  letter: 'Password must have at least 1 letter.',
-  num: 'Password must have at least 1 number.',
-  special: 'Password must have at least 1 special character.',
+  length: 'err pass length',
+  letter: 'err pass letter',
+  num: 'err pass num',
+  special: 'err pass special',
 };
 
 export const signinInputsSlice = createSlice({

@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import styles from './Docs.module.css';
 import { useAppSelector, useAppDispatch } from '../../store/store';
 import { useEffect } from 'react';
@@ -32,6 +34,8 @@ function DocsThree() {
 
   const listItems = rootFieldsKeys.map((item) => <li key={item}>{item}</li>);
   console.log(listItems);
+
+  const { t } = useTranslation();
 
   return (
     <ul>
