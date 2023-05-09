@@ -61,19 +61,19 @@ export default function SignInForm() {
             (data.includes('auth/user-not-found') || data.includes('auth/invalid-email'))
           ) {
             signInErrorText.current = `${t('some error')} 
-            Email not found. Please check the email you used.`;
+            ${t('email not found')}${t('check email')}`;
             setIsModal(true);
             setClicked(false);
             return;
           } else if (data && data.includes('auth/wrong-password')) {
             signInErrorText.current = `${t('some error')} 
-            Incorrect password. Please check the password you used.`;
+            ${t('incorrect pass')}`;
             setIsModal(true);
             setClicked(false);
             return;
           } else if (data && (data.includes('Error') || data.includes('auth/too-many-requests'))) {
             signInErrorText.current = `${t('some error')} 
-            Please try again later.`;
+            ${t('try again')}`;
             setIsModal(true);
             setClicked(false);
             return;
@@ -155,12 +155,12 @@ export default function SignInForm() {
     if (!errorEmail) {
       sendPasswordReset(inputEmail).then((data) => {
         if (data && data.includes('Error')) {
-          signInErrorText.current = `Email not found. 
-          Please check the email you used.`;
+          signInErrorText.current = `${t('email not found')} 
+          ${t('check email')}`;
           setIsModal(true);
           return;
         }
-        signInErrorText.current = `Reset passsword link is sent to your email.`;
+        signInErrorText.current = `${t('reset pass link')}`;
         setIsModal(true);
       });
     }
@@ -190,34 +190,34 @@ export default function SignInForm() {
         <form className={styles.signin_in_wrap} onSubmit={(e) => handeSubmit(e)}>
           <InputWithError
             type="text"
-            placeholder="Your Email"
+            placeholder={t('your email')}
             value={inputEmail}
             onChange={(e) => handleChange('email', e.target.value)}
             isError={errorEmail}
-            errorText="Please specify correct email."
+            errorText={t('err email')}
           />
           <InputWithError
             type="text"
-            placeholder="Your Password"
+            placeholder={t('your pass')}
             value={inputPass}
             onChange={(e) => handleChange('password', e.target.value)}
             isError={errorPassword}
-            errorText={errorPassText}
+            errorText={t(errorPassText)}
           />
-          <Button buttonType="submit" buttonText="Sign In" buttonWidth="80%" />
+          <Button buttonType="submit" buttonText={t('sign in verb')} buttonWidth="80%" />
           <Button
             func={() => {
               signInWithGoogle().then(() => returnToDefaultState());
             }}
             buttonType="button"
-            buttonText="Sign In with Google"
+            buttonText={t('sign in google')}
             buttonWidth="80%"
           />
           <a className={styles.signin_forgot} onClick={resetPassword}>
-            Forgot password?
+            {t('forgot pass')}
           </a>
           <div className={styles.signup_signin}>
-            {"Don't have an account?"} <a onClick={() => navigate('/signup')}>Sign up now!</a>
+            {t('no acc')} <a onClick={() => navigate('/signup')}>{t('no acc sign up')}</a>
           </div>
         </form>
       </div>

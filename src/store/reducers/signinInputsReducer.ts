@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import i18n from '../../localization/i18next';
 
 interface IInputsState {
   email: string;
@@ -9,10 +8,10 @@ interface IInputsState {
 
 const passwErrorTextOpts = {
   initial: '',
-  length: i18n.t('err pass length'),
-  letter: i18n.t('err pass letter'),
-  num: i18n.t('err pass num'),
-  special: i18n.t('err pass special'),
+  length: 'err pass length',
+  letter: 'err pass letter',
+  num: 'err pass num',
+  special: 'err pass special',
 };
 
 export const signinInputsSlice = createSlice({
