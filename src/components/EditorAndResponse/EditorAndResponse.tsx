@@ -10,11 +10,12 @@ import ResponseSection from '../ResponseSection/ResponseSection';
 export default function EditorAndResponse() {
   const [getPlayEditor] = countryAPI.useLazyFetchGetDateCountriesQuery();
 
-  const { strCode } = useAppSelector((state) => state.codeEditReducer);
+  const { strCode, variables, header } = useAppSelector((state) => state.codeEditReducer);
+
   const [currentResp, setCurrentResp] = useState<{ data: object } | null>(null);
 
-  const strCodeExample = `query GetCountry {
-    country(code: "BR") {
+  const strCodeExample = `query GetCountry($t:ID!) {
+    country(code:$t) {
       name
       native
       capital
@@ -27,12 +28,20 @@ export default function EditorAndResponse() {
     }
   }`;
 
+  const v = `{
+    "t":"BR"
+  }`;
+
   const playCode = async () => {
-    const t = await getPlayEditor({ strCode: strCodeExample });
-    if (t.data) {
-      if (t.data.data) {
+    const t = await getPlayEditor({ strCode: strCodeExample, varUser: v });
+    if (t.status === 'rejected') {
+      console.log(t.error);
+      return;
+    }
+    if (t.status === 'fulfilled') {
+      if (t.data) {
         console.log(t.data.data);
-        setCurrentResp(t.data.data);
+        setCurrentResp(t.data);
       }
     }
   };

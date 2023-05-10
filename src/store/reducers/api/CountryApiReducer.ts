@@ -8,7 +8,8 @@ interface IStrQuery {
 
 interface IResponseData {
   data: {
-    data: object;
+    dataResponse: object;
+    error?: [];
   };
 }
 
@@ -19,22 +20,20 @@ export const countryAPI = createApi({
   endpoints: (builder) => ({
     fetchGetDateCountries: builder.query<IResponseData, IStrQuery>({
       query: ({ strCode, varUser, headers }) => {
-        if (varUser && headers)
+        if (varUser && headers) {
           return {
             url: `/`,
             headers: {
-              'Content-Type': 'application/json',
-              headers,
+              headers: Object.assign({ 'Content-Type': 'application/json' }, JSON.parse(headers)),
             },
             method: 'POST',
             body: JSON.stringify({
               query: strCode,
-              varibales: {
-                varUser,
-              },
+              varibales: JSON.parse(varUser),
             }),
           };
-        if (varUser)
+        }
+        if (varUser) {
           return {
             url: `/`,
             headers: {
@@ -43,18 +42,14 @@ export const countryAPI = createApi({
             method: 'POST',
             body: JSON.stringify({
               query: strCode,
-              varibales: {
-                varUser,
-              },
+              variables: JSON.parse(varUser),
             }),
           };
+        }
         if (headers)
           return {
             url: `/`,
-            headers: {
-              'Content-Type': 'application/json',
-              headers,
-            },
+            headers: Object.assign({ 'Content-Type': 'application/json' }, JSON.parse(headers)),
             method: 'POST',
             body: JSON.stringify({
               query: strCode,
