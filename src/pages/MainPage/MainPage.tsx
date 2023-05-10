@@ -1,14 +1,18 @@
 import styles from './MainPage.module.css';
-
-import Docs from '../../components/Docs/Docs';
+import { lazy, Suspense } from 'react';
 import ControlPanel from '../../components/ControlPanel/ControlPanel';
 import EditorAndResponse from '../../components/EditorAndResponse/EditorAndResponse';
+import Loading from '../../components/Loading/Loading';
+
+const Docs = lazy(() => import('../../components/Docs/Docs'));
 
 export default function MainPage() {
   return (
     <div className={styles.main__container}>
       <ControlPanel></ControlPanel>
-      <Docs></Docs>
+      <Suspense fallback={<Loading />}>
+        <Docs></Docs>
+      </Suspense>
       <EditorAndResponse />
     </div>
   );

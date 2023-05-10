@@ -1,10 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
 import styles from './Docs.module.css';
-import { useAppSelector, useAppDispatch } from '../../store/store';
-import { useEffect } from 'react';
+import { useAppSelector } from '../../store/store';
 import { getIntrospectionQuery, buildClientSchema, printSchema } from 'graphql/utilities';
-import { updateDocsIsUploaded } from '../../store/reducers/docsIsUploadedReduser';
 
 async function getSchema(endpoint: string) {
   const response = await fetch(endpoint, {
@@ -21,7 +19,7 @@ async function getSchema(endpoint: string) {
 }
 
 const schema = await getSchema('https://countries.trevorblades.com');
-console.log(schema);
+// console.log(schema);
 // console.log(schema?.getTypeMap()); //получить все типы
 
 function DocsThree() {
@@ -48,36 +46,14 @@ function DocsThree() {
 }
 
 export default function Docs() {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    getSchema('https://countries.trevorblades.com').then(() => {
-      dispatch(updateDocsIsUploaded(true));
-    });
-  }, []);
-
   const docsIsOpen = useAppSelector<boolean>((state) => state.docsIsOpenReducer.docsIsOpen);
-  const docsIsUploaded = useAppSelector<boolean>(
-    (state) => state.docsIsUploadedReduser.docsIsUploaded
+  return (
+    <>
+      <div className={docsIsOpen ? styles.docs__window : styles.docs__window_close}>
+        <h3>Docs</h3>
+        <span>A GraphQL schema provides a root type for each kind of operation.</span>
+        <DocsThree></DocsThree>
+      </div>
+    </>
   );
-
-  if (docsIsUploaded) {
-    return (
-      <>
-        <div className={docsIsOpen ? styles.docs__window : styles.docs__window_close}>
-          <h3>Docs</h3>
-          <span>A GraphQL schema provides a root type for each kind of operation.</span>
-          <DocsThree></DocsThree>
-        </div>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <div className={docsIsOpen ? styles.docs__window : styles.docs__window_close}>
-          <h3>Docs</h3>
-          <span>Loading in progress...</span>
-        </div>
-      </>
-    );
-  }
 }
