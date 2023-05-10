@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { GoToMain, LogOut, SignIn, SignUp } from '../Nav/Nav';
 import Logo from '../Utils/Logo/Logo';
-import style from './Header.module.css';
+import styles from './Header.module.css';
 import { auth } from '../../firebase/firebaseSetup';
 
 export default function Header() {
@@ -33,17 +33,21 @@ export default function Header() {
   };
 
   return (
-    <header className={fix ? style.fixed : style.header}>
-      <div className={style.wrapper}>
+    <header className={fix ? styles.fixed : styles.header}>
+      <div className={styles.wrapper}>
         <Logo />
         {!loading && user === null && <SignUp />}
         {!loading && user === null && <SignIn />}
         {user && <LogOut />}
         {user && <GoToMain />}
-        <label>
-          RU
-          <input onClick={checkLanguage} ref={langRef} type="checkbox" />
-        </label>
+        <input
+          id="toggle"
+          onClick={checkLanguage}
+          ref={langRef}
+          type="checkbox"
+          className={styles.lang}
+        />
+        <label htmlFor="toggle" className={styles.lang_label}></label>
       </div>
     </header>
   );
