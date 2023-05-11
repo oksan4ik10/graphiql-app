@@ -1,5 +1,4 @@
 import CodeMirror from '@uiw/react-codemirror';
-import { ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../store/store';
 import { codeEditorSlice } from '../../../store/reducers/codeEditReducer';
 
@@ -15,8 +14,7 @@ export default function CodeEditor(props: IPropsEditor) {
   const dispatch = useAppDispatch();
   const { saveCode, saveVariables, saveHeader } = codeEditorSlice.actions;
 
-  function changeInput(e: ChangeEvent<HTMLInputElement>) {
-    const text = e.target.outerText;
+  function changeInput(text: string) {
     if (typeEditor === 'header') dispatch(saveHeader(text));
     else if (typeEditor === 'variables') dispatch(saveVariables(text));
     else dispatch(saveCode(text));
@@ -33,7 +31,7 @@ export default function CodeEditor(props: IPropsEditor) {
           allowMultipleSelections: false,
           indentOnInput: false,
         }}
-        onInput={changeInput}
+        onChange={(text) => changeInput(text)}
       />
     </>
   );
