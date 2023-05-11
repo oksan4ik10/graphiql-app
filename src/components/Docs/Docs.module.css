@@ -13,3 +13,11 @@
     transform: translateX(-110%);
     transition: transform 0.4s ease;
 }
+
+.node {
+    cursor: pointer;
+}
+
+.node:hover {
+    color: green;
+}
