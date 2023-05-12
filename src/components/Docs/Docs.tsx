@@ -85,33 +85,10 @@ async function getSchema(endpoint: string) {
 }
 
 const schema = await getSchema('https://countries.trevorblades.com');
-const schemaAst = buildASTSchema(parse(printSchema(buildClientSchema(schema))));
-const root = schemaAst?.getQueryType();
-const currentPath = root;
+const types = schema.__schema.types;
+types.forEach((element: object) => console.log(element));
 
-// console.log(printSchema(schemaAst));
-// const json = JSON.stringify(printSchema(schemaAst));
-// console.log(json);
-
-// const printSchemaAst = printSchema(schemaAst);
-// const typeMap = schemaAst.getTypeMap();
-// console.log(typeMap);
-
-function showChildren(event: any) {
-  const children = currentPath?.getFields();
-}
-
-function DocsThree() {
-  // const root = schemaAst?.getQueryType();
-  const rootName = root?.toString() as string;
-  console.log(root?.getFields());
-
-  return (
-    <div className={styles.node} onClick={showChildren}>
-      {rootName}
-    </div>
-  );
-}
+// const schemaAst = buildASTSchema(parse(printSchema(buildClientSchema(schema))));
 
 export default function Docs() {
   const docsIsOpen = useAppSelector<boolean>((state) => state.docsIsOpenReducer.docsIsOpen);
@@ -120,7 +97,7 @@ export default function Docs() {
       <div className={docsIsOpen ? styles.docs__window : styles.docs__window_close}>
         <h3>Docs</h3>
         <span>A GraphQL schema provides a root type for each kind of operation.</span>
-        <DocsThree></DocsThree>
+        {/* <DocsThree></DocsThree> */}
       </div>
     </>
   );
