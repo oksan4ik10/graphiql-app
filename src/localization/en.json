@@ -1,6 +1,9 @@
 {
   "404text1": "This is probably not what you were looking for.",
   "404text2": "Press here to return to the Home page",
+  "404-header": "Oops!",
+  "404-message": "We can't seem to find the page you're looking for.",
+  "404-err": "Error code: 404",
   "have acc sign in title": "Aready have an account? Sign in and get going!",
   "no acc sign up title": "Don't have an account yet? Sign up and get going!",
   "your name": "Your Name",
