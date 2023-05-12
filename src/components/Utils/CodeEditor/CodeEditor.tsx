@@ -5,10 +5,11 @@ import { codeEditorSlice } from '../../../store/reducers/codeEditReducer';
 interface IPropsEditor {
   typeEditor: string;
   height: string;
+  response?: string;
 }
 
 export default function CodeEditor(props: IPropsEditor) {
-  const { typeEditor, height } = props;
+  const { typeEditor, height, response } = props;
 
   const { strCode, variables, header } = useAppSelector((state) => state.codeEditReducer);
   const dispatch = useAppDispatch();
@@ -23,7 +24,17 @@ export default function CodeEditor(props: IPropsEditor) {
   return (
     <>
       <CodeMirror
-        value={typeEditor === 'header' ? header : typeEditor === 'variables' ? variables : strCode}
+        value={
+          typeEditor === 'header'
+            ? header
+            : typeEditor === 'variables'
+            ? variables
+            : typeEditor === 'variables'
+            ? strCode
+            : response
+            ? response
+            : ''
+        }
         height={height}
         basicSetup={{
           foldGutter: false,
