@@ -5,10 +5,5 @@ interface IResponseSectionProps {
 }
 
 export default function ResponseSection({ resp }: IResponseSectionProps) {
-  return (
-    <div className={styles.respsec_wrapper}>
-      <h2>Response</h2>
-      {resp && <div>{JSON.stringify(resp)}</div>}
-    </div>
-  );
+  return <div className={styles.respsec_wrapper}>{resp && <div>{JSON.stringify(resp)}</div>}</div>;
 }

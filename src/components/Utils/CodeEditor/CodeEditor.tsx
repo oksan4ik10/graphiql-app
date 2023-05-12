@@ -17,7 +17,7 @@ export default function CodeEditor(props: IPropsEditor) {
   function changeInput(text: string) {
     if (typeEditor === 'header') dispatch(saveHeader(text));
     else if (typeEditor === 'variables') dispatch(saveVariables(text));
-    else dispatch(saveCode(text));
+    else if (typeEditor === 'strCode') dispatch(saveCode(text));
   }
 
   return (

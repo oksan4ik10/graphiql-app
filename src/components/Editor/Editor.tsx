@@ -15,6 +15,18 @@ export default function Editor({ buttonFunc, testStrCode }: IEditorProps) {
   const { t } = useTranslation();
 
   const [isHidden, setIsHidden] = useState(true);
+  const [isVarsChecked, setIsVarsChecked] = useState<boolean>(true);
+  const [isHeadsChecked, setIsHeadsChecked] = useState<boolean>(false);
+
+  const toggleTabChecked = (tabID: string) => {
+    if (tabID === 'tab1') {
+      setIsHeadsChecked(false);
+      setIsVarsChecked(true);
+    } else if (tabID === 'tab2') {
+      setIsVarsChecked(false);
+      setIsHeadsChecked(true);
+    }
+  };
 
   const playCode = () => {
     buttonFunc();
@@ -32,8 +44,18 @@ export default function Editor({ buttonFunc, testStrCode }: IEditorProps) {
       </button>
       <div className={`${style.tabs} ${isHidden ? style.tabs2 : ''} `}>
         <div className={style.tab}>
-          <input type="radio" id="tab1" name="tab-group" checked onChange={() => {}} />
-          <label htmlFor="tab1" className={style.tab_title}>
+          <input
+            type="radio"
+            id="tab1"
+            name="tab-group"
+            checked={isVarsChecked}
+            onChange={() => {}}
+          />
+          <label
+            htmlFor="tab1"
+            className={style.tab_title}
+            onClick={() => toggleTabChecked('tab1')}
+          >
             {t('variables')}
           </label>
           <section className={style.tab_content}>
@@ -41,8 +63,18 @@ export default function Editor({ buttonFunc, testStrCode }: IEditorProps) {
           </section>
         </div>
         <div className={style.tab}>
-          <input type="radio" id="tab2" name="tab-group" onChange={() => {}} />
-          <label htmlFor="tab2" className={style.tab_title}>
+          <input
+            type="radio"
+            id="tab2"
+            name="tab-group"
+            checked={isHeadsChecked}
+            onChange={() => {}}
+          />
+          <label
+            htmlFor="tab2"
+            className={style.tab_title}
+            onClick={() => toggleTabChecked('tab2')}
+          >
             {t('headers')}
           </label>
           <section className={style.tab_content}>
