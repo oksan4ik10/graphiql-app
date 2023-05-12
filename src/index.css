@@ -31,7 +31,7 @@ a {
   cursor: pointer;
 }
 a:hover {
-  color: var(--color-three);;
+  color: var(--color-three);
 }
 
 body {
@@ -40,6 +40,8 @@ body {
   min-width: 320px;
   min-height: 100vh;
   justify-content: center;
+  color: var(--color-text);
+  line-height: 1.2;
 }
 
 h1 {
