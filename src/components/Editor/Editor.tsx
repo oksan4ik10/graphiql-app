@@ -44,13 +44,7 @@ export default function Editor({ buttonFunc, testStrCode }: IEditorProps) {
       </button>
       <div className={`${style.tabs} ${isHidden ? style.tabs2 : ''} `}>
         <div className={style.tab}>
-          <input
-            type="radio"
-            id="tab1"
-            name="tab-group"
-            checked={isVarsChecked}
-            onChange={() => {}}
-          />
+          <input type="radio" id="tab1" name="tab-group" checked={isVarsChecked} />
           <label
             htmlFor="tab1"
             className={style.tab_title}
@@ -63,13 +57,7 @@ export default function Editor({ buttonFunc, testStrCode }: IEditorProps) {
           </section>
         </div>
         <div className={style.tab}>
-          <input
-            type="radio"
-            id="tab2"
-            name="tab-group"
-            checked={isHeadsChecked}
-            onChange={() => {}}
-          />
+          <input type="radio" id="tab2" name="tab-group" checked={isHeadsChecked} />
           <label
             htmlFor="tab2"
             className={style.tab_title}
