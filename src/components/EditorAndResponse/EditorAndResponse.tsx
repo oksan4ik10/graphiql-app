@@ -8,11 +8,11 @@ import Editor from '../Editor/Editor';
 import ResponseSection from '../ResponseSection/ResponseSection';
 
 export default function EditorAndResponse() {
-  const [getPlayEditor] = countryAPI.useLazyFetchGetDateCountriesQuery();
+  const [getPlayEditor, { error, data }] = countryAPI.useLazyFetchGetDateCountriesQuery();
 
   const { strCode, variables, header } = useAppSelector((state) => state.codeEditReducer);
 
-  const [currentResp, setCurrentResp] = useState<{ data: object } | null>(null);
+  const [currentResp, setCurrentResp] = useState<{ data: object } | undefined | unknown>(undefined);
 
   const strCodeExample = `query GetCountry($t:ID!) {
     country(code:$t) {
@@ -33,16 +33,16 @@ export default function EditorAndResponse() {
   }`;
 
   const playCode = async () => {
-    const t = await getPlayEditor({ strCode: strCodeExample, varUser: v });
+    const t = await getPlayEditor({ strCode: strCode, varUser: variables, headers: header });
+    console.log(t);
+    console.log(error, data);
+    console.log(currentResp);
+
     if (t.status === 'rejected') {
-      console.log(t.error);
-      return;
+      setCurrentResp(t.error);
     }
     if (t.status === 'fulfilled') {
-      if (t.data) {
-        console.log(t.data.data);
-        setCurrentResp(t.data);
-      }
+      setCurrentResp(data);
     }
   };
 

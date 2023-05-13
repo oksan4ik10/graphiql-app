@@ -6,10 +6,26 @@ interface IStrQuery {
   headers?: string;
 }
 
+interface locationsArray {
+  column: number;
+  line: number;
+}
+
+interface errorArray {
+  message: string;
+  locations: locationsArray[];
+}
+
 interface IResponseData {
   data: {
     dataResponse: object;
-    error?: [];
+    loading: boolean;
+    error?: {
+      status: number;
+      data: {
+        errors: errorArray[];
+      };
+    };
   };
 }
 
