@@ -8,29 +8,11 @@ import Editor from '../Editor/Editor';
 import ResponseSection from '../ResponseSection/ResponseSection';
 
 export default function EditorAndResponse() {
-  const [getPlayEditor, { data }] = countryAPI.useLazyFetchGetDateCountriesQuery();
+  const [getPlayEditor] = countryAPI.useLazyFetchGetDateCountriesQuery();
 
   const { strCode, variables, header } = useAppSelector((state) => state.codeEditReducer);
 
   const [currentResp, setCurrentResp] = useState<{ data: object } | undefined | unknown>(undefined);
-
-  const strCodeExample = `query GetCountry($t:ID!) {
-    country(code:$t) {
-      name
-      native
-      capital
-      emoji
-      currency
-      languages {
-        code
-        name
-      }
-    }
-  }`;
-
-  const v = `{
-    "t":"BR"
-  }`;
 
   const playCode = async () => {
     const t = await getPlayEditor({ strCode: strCode, varUser: variables, headers: header });
