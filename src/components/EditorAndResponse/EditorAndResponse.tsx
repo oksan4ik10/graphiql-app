@@ -48,7 +48,7 @@ export default function EditorAndResponse() {
 
   return (
     <div className={styles.edit_resp_wraper}>
-      <Editor buttonFunc={playCode} testStrCode={strCode.toString()} />
+      <Editor buttonFunc={playCode} />
       <ResponseSection resp={currentResp} />
     </div>
   );
