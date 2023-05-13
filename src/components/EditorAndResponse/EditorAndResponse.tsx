@@ -38,7 +38,7 @@ export default function EditorAndResponse() {
       setCurrentResp(t.error);
     }
     if (t.status === 'fulfilled') {
-      setCurrentResp(data);
+      setCurrentResp(t.data);
     }
   };
 
