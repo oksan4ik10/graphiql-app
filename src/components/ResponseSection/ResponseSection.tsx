@@ -3,7 +3,7 @@ import styles from './ResponseSection.module.css';
 import CodeEditor from '../Utils/CodeEditor/CodeEditor';
 
 interface IResponseSectionProps {
-  resp: { data: object } | null;
+  resp: { data: object } | undefined | unknown;
 }
 
 export default function ResponseSection({ resp }: IResponseSectionProps) {
