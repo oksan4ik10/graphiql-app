@@ -8,7 +8,7 @@ import Editor from '../Editor/Editor';
 import ResponseSection from '../ResponseSection/ResponseSection';
 
 export default function EditorAndResponse() {
-  const [getPlayEditor, { error, data }] = countryAPI.useLazyFetchGetDateCountriesQuery();
+  const [getPlayEditor, { data }] = countryAPI.useLazyFetchGetDateCountriesQuery();
 
   const { strCode, variables, header } = useAppSelector((state) => state.codeEditReducer);
 
@@ -34,21 +34,17 @@ export default function EditorAndResponse() {
 
   const playCode = async () => {
     const t = await getPlayEditor({ strCode: strCode, varUser: variables, headers: header });
-    console.log(t);
-    console.log(error, data);
-    console.log(currentResp);
-
     if (t.status === 'rejected') {
       setCurrentResp(t.error);
     }
     if (t.status === 'fulfilled') {
-      setCurrentResp(data);
+      setCurrentResp(t.data);
     }
   };
 
   return (
     <div className={styles.edit_resp_wraper}>
-      <Editor buttonFunc={playCode} testStrCode={strCode.toString()} />
+      <Editor buttonFunc={playCode} />
       <ResponseSection resp={currentResp} />
     </div>
   );

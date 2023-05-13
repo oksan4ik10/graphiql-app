@@ -7,11 +7,9 @@ import { useState } from 'react';
 
 interface IEditorProps {
   buttonFunc: () => void;
-  //СТРОКА НИЖЕ - ПРОП НА ВРЕМЯ ТЕСТИРОВАНИЯ
-  testStrCode: object;
 }
 
-export default function Editor({ buttonFunc, testStrCode }: IEditorProps) {
+export default function Editor({ buttonFunc }: IEditorProps) {
   const { t } = useTranslation();
 
   const [isHidden, setIsHidden] = useState(true);
@@ -66,7 +64,6 @@ export default function Editor({ buttonFunc, testStrCode }: IEditorProps) {
           </svg>
         </button>
       </div>
-      <h4>Code:{testStrCode.toString()}</h4>
     </div>
   );
 }
