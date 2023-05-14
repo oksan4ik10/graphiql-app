@@ -15,7 +15,7 @@ export default function ResponseSection({ resp }: IResponseSectionProps) {
         lineNumbers="no"
         typeEditor="response"
         height="60vh"
-        response={resp ? JSON.stringify(resp) : ''}
+        response={resp ? JSON.stringify(resp, null, 2) : ''}
       />
     </div>
   );
