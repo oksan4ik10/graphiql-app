@@ -59,12 +59,12 @@ import styles from './Docs.module.css';
 import { useAppSelector } from '../../store/store';
 import {
   getIntrospectionQuery,
-  buildASTSchema,
-  printSchema,
-  buildClientSchema,
-  typeFromAST,
+  //buildASTSchema,
+  //printSchema,
+  //buildClientSchema,
+  //typeFromAST,
 } from 'graphql/utilities';
-import { parse, parseType } from 'graphql';
+//import { parse, parseType } from 'graphql';
 
 async function getSchema(endpoint: string) {
   const response = await fetch(endpoint, {
