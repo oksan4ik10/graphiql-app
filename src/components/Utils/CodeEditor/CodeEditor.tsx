@@ -1,4 +1,6 @@
 import CodeMirror from '@uiw/react-codemirror';
+import { json } from '@codemirror/lang-json';
+
 import { useAppDispatch, useAppSelector } from '../../../store/store';
 import { codeEditorSlice } from '../../../store/reducers/codeEditReducer';
 
@@ -9,6 +11,7 @@ interface IPropsEditor {
   lineNumbers?: 'no';
   editable?: 'no';
   highlightLine?: 'no';
+  json?: boolean;
 }
 
 export default function CodeEditor(props: IPropsEditor) {
@@ -40,6 +43,7 @@ export default function CodeEditor(props: IPropsEditor) {
         }
         height={height}
         editable={editable ? false : true}
+        extensions={[json()]}
         basicSetup={{
           foldGutter: false,
           dropCursor: false,
@@ -47,6 +51,7 @@ export default function CodeEditor(props: IPropsEditor) {
           indentOnInput: false,
           lineNumbers: lineNumbers ? false : true,
           highlightActiveLine: highlightLine ? false : true,
+          syntaxHighlighting: true,
         }}
         onChange={(text) => changeInput(text)}
       />
