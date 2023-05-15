@@ -1,9 +1,7 @@
-// import { useTranslation } from 'react-i18next';
-
 import styles from './Docs.module.css';
-import { useAppSelector } from '../../store/store';
+import { useAppSelector, useAppDispatch } from '../../store/store';
 import { getIntrospectionQuery } from 'graphql/utilities';
-import { useState } from 'react';
+import { updateDocsField } from '../../store/reducers/docsFieldReduser';
 
 type OneType = {
   kind: string;
@@ -21,9 +19,7 @@ async function getSchema(endpoint: string) {
   })
     .then((res) => res.json())
     .then((res) => {
-      // console.log(JSON.stringify(res.data, null, '\t'));
       return res.data;
-      // return JSON.stringify(res.data, null, '\t');
     });
   try {
     return response;
@@ -46,8 +42,20 @@ types.forEach((element: OneType) => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Type(props: any) {
-  if (props.child.type.kind === 'OBJECT' || props.child.type.kind === 'SCALAR') {
+  if (
+    props.child.type.kind === 'OBJECT' ||
+    props.child.type.kind === 'SCALAR' ||
+    props.child.type.kind === 'INPUT_OBJECT'
+  ) {
     return <>{props.child.type.name}</>;
+  } else if (props.child.type.kind === 'LIST') {
+    return (
+      <>
+        <span>[</span>
+        <span>{props.child.type.ofType.ofType.name}</span>
+        <span>!]</span>
+      </>
+    );
   } else {
     if (props.child.type.ofType.kind === 'LIST') {
       return (
@@ -59,18 +67,19 @@ function Type(props: any) {
       );
     } else if (
       props.child.type.ofType.kind === 'SCALAR' ||
-      props.child.type.ofType.kind === 'OBJECT'
+      props.child.type.ofType.kind === 'OBJECT' ||
+      props.child.type.ofType.kind === 'INPUT_OBJECT'
     ) {
       return <>{props.child.type.ofType.name}</>;
     } else {
-      return <></>;
+      return <>!!!</>;
     }
   }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Arguments(props: any) {
-  if (props.child.args.length > 0) {
+  if (props.child.args && props.child.args.length > 0) {
     return (
       <>
         <span>(</span>
@@ -80,35 +89,57 @@ function Arguments(props: any) {
       </>
     );
   } else {
-    return <span>:</span>;
+    return <span>: </span>;
   }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ArgumentType(props: any) {
-  console.log(props.args);
+  const dispatch = useAppDispatch();
   if (props.args.name && props.args.kind === 'INPUT_OBJECT') {
-    //добавить обработку клика!
-    //перевести useState в состояние!
     return (
       <>
-        <span className={styles.link}>{props.args.name}</span>
+        <span
+          className={styles.link}
+          onClick={() => {
+            dispatch(updateDocsField(props.args.name));
+          }}
+        >
+          {props.args.name}
+        </span>
         <span>{'={}'}</span>
       </>
     );
   } else if (props.args.name && props.args.kind === 'SCALAR') {
-    return <span className={styles.link}>{props.args.name}</span>;
+    return (
+      <span
+        className={styles.link}
+        onClick={() => {
+          dispatch(updateDocsField(props.args.name));
+        }}
+      >
+        {props.args.name}
+      </span>
+    );
   } else {
-    return <span className={styles.link}>{props.args.ofType.name}</span>;
+    return (
+      <span
+        className={styles.link}
+        onClick={() => {
+          dispatch(updateDocsField(props.args.ofType.name));
+        }}
+      >
+        {props.args.ofType.name}
+      </span>
+    );
   }
 }
 
 function DocsThree() {
-  const [curValue, setCurValue] = useState('');
   const curField = useAppSelector<string>((state) => state.docsFieldReduser.docsField);
-  console.log(curField);
+  const dispatch = useAppDispatch();
 
-  if (!curValue) {
+  if (!curField) {
     return (
       <div>
         <div className={styles.title}>Docs</div>
@@ -116,7 +147,7 @@ function DocsThree() {
         <span
           className={styles.link}
           onClick={() => {
-            setCurValue('Query');
+            dispatch(updateDocsField('Query'));
           }}
         >
           {root}
@@ -125,8 +156,9 @@ function DocsThree() {
     );
   } else {
     let children = [];
-    if (objectType[curValue].kind === 'OBJECT') {
-      children = objectType[curValue].fields;
+    if (objectType[curField].kind === 'OBJECT') {
+      children = objectType[curField].fields;
+      console.log('children1', children);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const listItems = children.map((child: any) => (
         <div key={child.name}>
@@ -138,14 +170,14 @@ function DocsThree() {
             className={styles.link}
             onClick={() => {
               if (child.type.kind === 'OBJECT') {
-                setCurValue(child.type.name);
+                dispatch(updateDocsField(child.type.name));
               } else if (
                 child.type.ofType.kind === 'SCALAR' ||
                 child.type.ofType.kind === 'OBJECT'
               ) {
-                setCurValue(child.type.ofType.name);
+                dispatch(updateDocsField(child.type.ofType.name));
               } else if (child.type.ofType.kind === 'LIST') {
-                setCurValue(child.type.ofType.ofType.ofType.name);
+                dispatch(updateDocsField(child.type.ofType.ofType.ofType.name));
               }
             }}
           >
@@ -155,24 +187,52 @@ function DocsThree() {
       ));
       return (
         <>
-          <div className={styles.title}>{curValue}</div>
+          <div className={styles.title}>{curField}</div>
           <div>{listItems}</div>
         </>
       );
-    } else if (objectType[curValue].kind === 'SCALAR') {
+    } else if (objectType[curField].kind === 'SCALAR') {
       return (
         <>
-          <div className={styles.title}>{curValue}</div>
-          <span>{objectType[curValue].description}</span>
+          <div className={styles.title}>{curField}</div>
+          <span>{objectType[curField].description}</span>
+        </>
+      );
+    } else if (objectType[curField].kind === 'INPUT_OBJECT') {
+      children = objectType[curField].inputFields;
+      console.log('children2', children);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const listItems = children.map((child: any) => (
+        <div key={child.name}>
+          <span>{child.name}</span>
+          <span>
+            <Arguments child={child}></Arguments>
+          </span>
+          <span
+            className={styles.link}
+            onClick={() => {
+              if (child.type.kind === 'SCALAR' || child.type.kind === 'INPUT_OBJECT') {
+                dispatch(updateDocsField(child.type.name));
+              } else if (child.type.kind === 'LIST') {
+                dispatch(updateDocsField(child.type.ofType.ofType.name));
+              }
+            }}
+          >
+            <Type child={child}></Type>
+          </span>
+        </div>
+      ));
+      return (
+        <>
+          <div className={styles.title}>{curField}</div>
+          <div>{listItems}</div>
         </>
       );
     } else {
-      return <span>Any</span>;
+      return <>???</>;
     }
   }
 }
-
-// const schemaAst = buildASTSchema(parse(printSchema(buildClientSchema(schema))));
 
 export default function Docs() {
   const docsIsOpen = useAppSelector<boolean>((state) => state.docsIsOpenReducer.docsIsOpen);
