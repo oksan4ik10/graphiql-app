@@ -1,5 +1,5 @@
 import CodeMirror from '@uiw/react-codemirror';
-import { EditorView } from "@codemirror/view";
+import { EditorView } from '@codemirror/view';
 import { json } from '@codemirror/lang-json';
 
 import { useAppDispatch, useAppSelector } from '../../../store/store';
