@@ -1,4 +1,5 @@
 import CodeMirror from '@uiw/react-codemirror';
+import { EditorView } from "@codemirror/view";
 import { json } from '@codemirror/lang-json';
 
 import { useAppDispatch, useAppSelector } from '../../../store/store';
@@ -45,7 +46,7 @@ export default function CodeEditor(props: IPropsEditor) {
         }
         height={height}
         editable={editable ? false : true}
-        extensions={[json()]}
+        extensions={[json(), EditorView.lineWrapping]}
         basicSetup={{
           foldGutter: false,
           dropCursor: false,
