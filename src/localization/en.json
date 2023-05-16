@@ -39,5 +39,6 @@
   "headers": "Headers",
   "docs": "Documentation",
   "run":"Run",
-  "forgot pass": "Forgot password?"
+  "forgot pass": "Forgot password?",
+  "prettier":"Prettier"
 }

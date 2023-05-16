@@ -45,7 +45,7 @@ export const countryAPI = createApi({
             method: 'POST',
             body: JSON.stringify({
               query: strCode,
-              varibales: JSON.parse(varUser),
+              variables: JSON.parse(varUser),
             }),
           };
         }
