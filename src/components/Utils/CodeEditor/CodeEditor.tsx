@@ -1,4 +1,5 @@
 import CodeMirror from '@uiw/react-codemirror';
+import { EditorView } from '@codemirror/view';
 import { linter } from '@codemirror/lint';
 import { json, jsonParseLinter } from '@codemirror/lang-json';
 
@@ -48,7 +49,7 @@ export default function CodeEditor(props: IPropsEditor) {
         }
         height={height}
         editable={editable ? false : true}
-        extensions={[json(), linterExtension]}
+        extensions={[json(), linterExtension, EditorView.lineWrapping]}
         basicSetup={{
           foldGutter: false,
           dropCursor: false,

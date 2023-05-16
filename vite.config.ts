@@ -6,10 +6,10 @@ export default defineConfig({
   plugins: [react()],
   esbuild: {
     supported: {
-      'top-level-await': true 
+      'top-level-await': true,
     },
   },
   build: {
-    chunkSizeWarningLimit: 1200
-  }
+    chunkSizeWarningLimit: 1200,
+  },
 });
