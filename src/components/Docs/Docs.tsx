@@ -2,13 +2,82 @@ import styles from './Docs.module.css';
 import { useAppSelector, useAppDispatch } from '../../store/store';
 import { getIntrospectionQuery } from 'graphql/utilities';
 import { updateDocsField } from '../../store/reducers/docsFieldReduser';
+import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal } from 'react';
 
-type OneType = {
+type TOneType = {
   kind: string;
   name: string;
   description: string;
   fields: Array<string>;
   inputFields: null | Array<object>;
+};
+
+type TObjectType = {
+  [word: string]: TOneType;
+};
+
+type TPropsType = {
+  child: {
+    type: {
+      kind: string;
+      name: unknown;
+      ofType: {
+        ofType: {
+          name:
+            | string
+            | number
+            | boolean
+            | ReactElement<unknown, string | JSXElementConstructor<unknown>>
+            | ReactFragment
+            | ReactPortal
+            | null
+            | undefined;
+          ofType: {
+            name:
+              | string
+              | number
+              | boolean
+              | ReactElement<unknown, string | JSXElementConstructor<unknown>>
+              | ReactFragment
+              | ReactPortal
+              | null
+              | undefined;
+          };
+        };
+        kind: string;
+        name: unknown;
+      };
+    };
+  };
+};
+
+type TArgs = {
+  name: string;
+  type: object;
+};
+
+type TArgumentTypeProps = {
+  args: {
+    name?:
+      | string
+      | number
+      | boolean
+      | ReactFragment
+      | ReactElement<unknown, string | JSXElementConstructor<unknown>>
+      | null
+      | undefined;
+    kind?: string;
+    ofType?: {
+      name:
+        | string
+        | number
+        | boolean
+        | ReactFragment
+        | ReactElement<unknown, string | JSXElementConstructor<unknown>>
+        | null
+        | undefined;
+    };
+  };
 };
 
 async function getSchema(endpoint: string) {
@@ -30,18 +99,15 @@ async function getSchema(endpoint: string) {
 const schema = await getSchema('https://countries.trevorblades.com');
 const root = schema.__schema.queryType.name;
 const types = schema.__schema.types;
+const objectType: TObjectType = {};
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const objectType: any = {};
-
-types.forEach((element: OneType) => {
+types.forEach((element: TOneType) => {
   if (element.name[0] !== '_') {
     objectType[element.name] = element;
   }
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function Type(props: any) {
+function Type(props: TPropsType) {
   if (
     props.child.type.kind === 'OBJECT' ||
     props.child.type.kind === 'SCALAR' ||
@@ -77,8 +143,7 @@ function Type(props: any) {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function Arguments(props: any) {
+function Arguments(props: { child: { args: Array<TArgs> } }) {
   if (props.child.args && props.child.args.length > 0) {
     return (
       <>
@@ -93,8 +158,7 @@ function Arguments(props: any) {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function ArgumentType(props: any) {
+function ArgumentType(props: TArgumentTypeProps) {
   const dispatch = useAppDispatch();
   if (props.args.name && props.args.kind === 'INPUT_OBJECT') {
     return (
@@ -102,7 +166,7 @@ function ArgumentType(props: any) {
         <span
           className={styles.link}
           onClick={() => {
-            dispatch(updateDocsField(props.args.name));
+            dispatch(updateDocsField(props.args.name as string));
           }}
         >
           {props.args.name}
@@ -115,7 +179,7 @@ function ArgumentType(props: any) {
       <span
         className={styles.link}
         onClick={() => {
-          dispatch(updateDocsField(props.args.name));
+          dispatch(updateDocsField(props.args.name as string));
         }}
       >
         {props.args.name}
@@ -126,10 +190,10 @@ function ArgumentType(props: any) {
       <span
         className={styles.link}
         onClick={() => {
-          dispatch(updateDocsField(props.args.ofType.name));
+          dispatch(updateDocsField(props.args.ofType?.name as string));
         }}
       >
-        {props.args.ofType.name}
+        {props.args.ofType?.name as string}
       </span>
     );
   }
@@ -155,10 +219,10 @@ function DocsThree() {
       </div>
     );
   } else {
-    let children = [];
+    let children: object[] | string[] = [];
     if (objectType[curField].kind === 'OBJECT') {
       children = objectType[curField].fields;
-      console.log('children1', children);
+      // console.log('children1', children);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const listItems = children.map((child: any) => (
         <div key={child.name}>
@@ -199,8 +263,8 @@ function DocsThree() {
         </>
       );
     } else if (objectType[curField].kind === 'INPUT_OBJECT') {
-      children = objectType[curField].inputFields;
-      console.log('children2', children);
+      children = objectType[curField].inputFields as object[];
+      // console.log('children2', children);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const listItems = children.map((child: any) => (
         <div key={child.name}>
