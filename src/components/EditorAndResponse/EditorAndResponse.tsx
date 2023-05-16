@@ -15,12 +15,22 @@ export default function EditorAndResponse() {
   const [currentResp, setCurrentResp] = useState<{ data: object } | undefined | unknown>(undefined);
 
   const playCode = async () => {
-    const t = await getPlayEditor({ strCode: strCode, varUser: variables, headers: header });
-    if (t.status === 'rejected') {
-      setCurrentResp(t.error);
-    }
-    if (t.status === 'fulfilled') {
-      setCurrentResp(t.data);
+    try {
+      if (variables) {
+        JSON.parse(variables);
+      }
+      if (header) {
+        JSON.parse(header);
+      }
+      const t = await getPlayEditor({ strCode: strCode, varUser: variables, headers: header });
+      if (t.status === 'rejected') {
+        setCurrentResp(t.error);
+      }
+      if (t.status === 'fulfilled') {
+        setCurrentResp(t.data);
+      }
+    } catch (e) {
+      e instanceof Error ? setCurrentResp(e.message) : setCurrentResp('Unknown error.');
     }
   };
 

@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { getIntrospectionQuery } from 'graphql/utilities';
 
 import CodeEditor from '../Utils/CodeEditor/CodeEditor';
 
@@ -18,6 +19,20 @@ export default function Editor({ buttonFunc }: IEditorProps) {
     buttonFunc();
   };
 
+  const editCode = async () => {
+    console.log(23);
+
+    //для подстановки слов в редактор кода из схемы
+
+    // const response = await fetch('https://countries.trevorblades.com', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ query: getIntrospectionQuery() }),
+    // });
+    // const res = await response.json();
+    // console.log(res);
+  };
+
   const clickBtnHidden = () => {
     isHidden ? setIsHidden(false) : setIsHidden(true);
   };
@@ -27,9 +42,15 @@ export default function Editor({ buttonFunc }: IEditorProps) {
       <div className={style.editor_main}>
         <CodeEditor typeEditor="strCode" height="500px"></CodeEditor>
       </div>
-      <button onClick={playCode} className={style.button}>
-        {t('run')}
-      </button>
+      <div className="buttons">
+        <button onClick={playCode} className={style.button}>
+          {t('run')}
+        </button>
+        <button onClick={editCode} className={style.button}>
+          {t('prettier')}
+        </button>
+      </div>
+
       <div className={`${style.tabs} ${isHidden ? style.tabs2 : ''} `}>
         <div className={style.tab}>
           <input type="radio" id="tab1" name="tab-group" defaultChecked />
