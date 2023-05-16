@@ -12,6 +12,7 @@ interface IPropsEditor {
   editable?: 'no';
   highlightLine?: 'no';
   json?: boolean;
+  className?: string;
 }
 
 export default function CodeEditor(props: IPropsEditor) {
@@ -30,6 +31,7 @@ export default function CodeEditor(props: IPropsEditor) {
   return (
     <>
       <CodeMirror
+        className={props.className ? props.className : ''}
         value={
           typeEditor === 'header'
             ? header

@@ -24,7 +24,9 @@ export default function Editor({ buttonFunc }: IEditorProps) {
 
   return (
     <div className={style.codeMirror}>
-      <CodeEditor typeEditor="strCode" height="60vh"></CodeEditor>
+      <div className={style.editor_main}>
+        <CodeEditor typeEditor="strCode" height="500px"></CodeEditor>
+      </div>
       <button onClick={playCode} className={style.button}>
         {t('run')}
       </button>
@@ -35,7 +37,7 @@ export default function Editor({ buttonFunc }: IEditorProps) {
             {t('variables')}
           </label>
           <section className={style.tab_content}>
-            <CodeEditor typeEditor="variables" height="50px"></CodeEditor>
+            <CodeEditor typeEditor="variables" height="20%"></CodeEditor>
           </section>
         </div>
         <div className={style.tab}>
@@ -44,7 +46,7 @@ export default function Editor({ buttonFunc }: IEditorProps) {
             {t('headers')}
           </label>
           <section className={style.tab_content}>
-            <CodeEditor typeEditor="header" height="50px"></CodeEditor>
+            <CodeEditor typeEditor="header" height="20%"></CodeEditor>
           </section>
         </div>
         <button

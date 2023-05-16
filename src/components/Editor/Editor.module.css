@@ -3,14 +3,25 @@
 .codeMirror{
     display: grid;
     grid-template-columns: 1.8fr 0.2fr;
+    grid-template-rows: 1.5fr 0.5fr;
+    max-height: 100%;
+    overflow: hidden;
     gap: 10px;
     font-size: 1rem;
+}
+.editor_main{
+    overflow: auto;
+    height: 500px;
+    display: inline-block;
+    position: relative;
 }
 .tabs {
     position: relative;
     display: flex;
     align-items: start;
     width: 100%;
+    overflow: auto;
+    height: 100%;
 
    }
    .tab, .tab_title {

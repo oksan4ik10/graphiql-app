@@ -61,3 +61,27 @@ h1 {
     background-color: #f9f9f9;
   }
 }
+
+/* Работает в Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var( --color-text-light) var( --color-background);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(  --color-background);
+  cursor: pointer;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var( --color-text-light);
+  border-radius: 20px;
+  border: 2px solid var(  --color-background);
+  cursor: pointer;
+}
