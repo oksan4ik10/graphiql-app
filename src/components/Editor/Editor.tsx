@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
+import { getIntrospectionQuery } from 'graphql/utilities';
 
 import CodeEditor from '../Utils/CodeEditor/CodeEditor';
+import { useAppSelector } from '../../store/store';
 
 import style from './Editor.module.css';
 import { useState } from 'react';
@@ -13,13 +15,22 @@ export default function Editor({ buttonFunc }: IEditorProps) {
   const { t } = useTranslation();
 
   const [isHidden, setIsHidden] = useState(true);
+  const curField = useAppSelector<string>((state) => state.docsFieldReduser.docsField);
 
   const playCode = () => {
     buttonFunc();
   };
 
-  const editCode = () => {
+  const editCode = async () => {
     console.log(23);
+    console.log(curField);
+    const response = await fetch('https://countries.trevorblades.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: getIntrospectionQuery() }),
+    });
+    const res = await response.json();
+    console.log(res);
   };
 
   const clickBtnHidden = () => {

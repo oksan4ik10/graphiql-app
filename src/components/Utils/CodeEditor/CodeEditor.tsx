@@ -1,5 +1,6 @@
 import CodeMirror from '@uiw/react-codemirror';
-import { json } from '@codemirror/lang-json';
+import { linter } from '@codemirror/lint';
+import { json, jsonParseLinter } from '@codemirror/lang-json';
 
 import { useAppDispatch, useAppSelector } from '../../../store/store';
 import { codeEditorSlice } from '../../../store/reducers/codeEditReducer';
@@ -21,6 +22,8 @@ export default function CodeEditor(props: IPropsEditor) {
   const { strCode, variables, header } = useAppSelector((state) => state.codeEditReducer);
   const dispatch = useAppDispatch();
   const { saveCode, saveVariables, saveHeader } = codeEditorSlice.actions;
+
+  const linterExtension = linter(jsonParseLinter());
 
   function changeInput(text: string) {
     if (typeEditor === 'header') dispatch(saveHeader(text));
@@ -45,7 +48,7 @@ export default function CodeEditor(props: IPropsEditor) {
         }
         height={height}
         editable={editable ? false : true}
-        extensions={[json()]}
+        extensions={[json(), linterExtension]}
         basicSetup={{
           foldGutter: false,
           dropCursor: false,
