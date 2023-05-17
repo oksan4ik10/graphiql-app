@@ -16,6 +16,7 @@ export default function Editor({ buttonFunc }: IEditorProps) {
   const { t } = useTranslation();
 
   const [isHidden, setIsHidden] = useState(true);
+  const [copyBtnText, setcopyBtnText] = useState(t('copy'));
 
   const { strCode } = useAppSelector((state) => state.codeEditReducer);
   const dispatch = useAppDispatch();
@@ -72,7 +73,13 @@ export default function Editor({ buttonFunc }: IEditorProps) {
     // console.log(res);
   };
 
-  const copyCode = () => {};
+  const copyCode = () => {
+    setcopyBtnText(t('copyClick'));
+    setTimeout(
+      () => navigator.clipboard.writeText(strCode).then(() => setcopyBtnText(t('copy'))),
+      300
+    );
+  };
 
   const clickBtnHidden = () => {
     isHidden ? setIsHidden(false) : setIsHidden(true);
@@ -91,7 +98,7 @@ export default function Editor({ buttonFunc }: IEditorProps) {
           {t('prettier')}
         </button>
         <button onClick={copyCode} className={style.button}>
-          {t('copy')}
+          {copyBtnText}
         </button>
       </div>
 
