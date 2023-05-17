@@ -40,5 +40,7 @@
   "docs": "Documentation",
   "run":"Run",
   "forgot pass": "Forgot password?",
-  "prettier":"Prettier"
+  "prettier":"Prettier",
+  "copy":"Copy",
+  "copyClick":"Done"
 }
