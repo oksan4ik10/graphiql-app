@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { getIntrospectionQuery } from 'graphql/utilities';
+// import { getIntrospectionQuery } from 'graphql/utilities';
 
 import CodeEditor from '../Utils/CodeEditor/CodeEditor';
+import { useAppSelector, useAppDispatch } from '../../store/store';
+import { codeEditorSlice } from '../../store/reducers/codeEditReducer';
 
 import style from './Editor.module.css';
 import { useState } from 'react';
@@ -15,12 +17,26 @@ export default function Editor({ buttonFunc }: IEditorProps) {
 
   const [isHidden, setIsHidden] = useState(true);
 
+  const { strCode } = useAppSelector((state) => state.codeEditReducer);
+  const dispatch = useAppDispatch();
+  const { saveCode } = codeEditorSlice.actions;
+
   const playCode = () => {
     buttonFunc();
   };
 
-  const editCode = async () => {
+  const editCode = () => {
     console.log(23);
+    let s = strCode.replace(/{/g, ' {');
+    console.log(s);
+
+    s = strCode.replace(/\s+/g, ' ');
+    console.log(s);
+
+    s = strCode.replace(/\n+/g, '\n').trim();
+
+    dispatch(saveCode(s));
+    console.log(s);
 
     //для подстановки слов в редактор кода из схемы
 
