@@ -9,6 +9,7 @@ import signinErrorsReducer from './reducers/signinErrorsReducer';
 import codeEditReducer from './reducers/codeEditReducer';
 import docsIsOpenReducer from './reducers/docsIsOpenReducer';
 import docsFieldReduser from './reducers/docsFieldReduser';
+import docsFieldsListReduser from './reducers/docsFieldsListReduser';
 import { countryAPI } from './reducers/api/CountryApiReducer';
 
 export const combinedReducer = combineReducers({
@@ -19,6 +20,7 @@ export const combinedReducer = combineReducers({
   codeEditReducer,
   docsIsOpenReducer,
   docsFieldReduser,
+  docsFieldsListReduser,
   [countryAPI.reducerPath]: countryAPI.reducer,
 });
 

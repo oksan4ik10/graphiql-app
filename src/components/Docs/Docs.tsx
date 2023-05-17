@@ -2,6 +2,7 @@ import styles from './Docs.module.css';
 import { useAppSelector, useAppDispatch } from '../../store/store';
 import { getIntrospectionQuery } from 'graphql/utilities';
 import { updateDocsField } from '../../store/reducers/docsFieldReduser';
+import { addField, removeField } from '../../store/reducers/docsFieldsListReduser';
 import Type from './Type';
 import Arguments from './Arguments';
 import { TOneType, TField } from './interfaсes';
@@ -36,6 +37,10 @@ types.forEach((element: TOneType) => {
 
 function DocsThree() {
   const curField = useAppSelector<string>((state) => state.docsFieldReduser.docsField);
+  const fieldsList = useAppSelector<string[]>(
+    (state) => state.docsFieldsListReduser.docsFieldsList
+  );
+  const prevField = fieldsList[fieldsList.length - 1] ? fieldsList[fieldsList.length - 1] : '';
   const dispatch = useAppDispatch();
 
   if (!curField) {
@@ -47,6 +52,7 @@ function DocsThree() {
           className={styles.link}
           onClick={() => {
             dispatch(updateDocsField('Query'));
+            dispatch(addField(curField));
           }}
         >
           {root}
@@ -67,17 +73,20 @@ function DocsThree() {
             onClick={() => {
               if (child.type.kind === 'OBJECT') {
                 dispatch(updateDocsField(child.type.name));
+                dispatch(addField(curField));
               } else if (
                 child.type.ofType.kind === 'SCALAR' ||
                 child.type.ofType.kind === 'OBJECT'
               ) {
                 dispatch(updateDocsField(child.type.ofType.name as string));
+                dispatch(addField(curField));
               } else if (child.type.ofType.kind === 'LIST') {
                 dispatch(
                   updateDocsField(
                     child.type.ofType.ofType.ofType ? child.type.ofType.ofType.ofType.name : ''
                   )
                 );
+                dispatch(addField(curField));
               }
             }}
           >
@@ -87,6 +96,16 @@ function DocsThree() {
       ));
       return (
         <>
+          <div
+            className={styles.back}
+            onClick={() => {
+              dispatch(removeField());
+              prevField ? dispatch(updateDocsField(prevField)) : dispatch(updateDocsField(''));
+            }}
+          >
+            <div className={styles.arrow}></div>
+            {fieldsList.length > 1 ? prevField : 'Docs'}
+          </div>
           <div className={styles.title}>{curField}</div>
           <div>{listItems}</div>
         </>
@@ -94,6 +113,16 @@ function DocsThree() {
     } else if (objectType[curField].kind === 'SCALAR') {
       return (
         <>
+          <div
+            className={styles.back}
+            onClick={() => {
+              dispatch(removeField());
+              prevField ? dispatch(updateDocsField(prevField)) : dispatch(updateDocsField(''));
+            }}
+          >
+            <div className={styles.arrow}></div>
+            {fieldsList.length > 1 ? prevField : 'Docs'}
+          </div>
           <div className={styles.title}>{curField}</div>
           <span>{objectType[curField].description}</span>
         </>
@@ -111,8 +140,10 @@ function DocsThree() {
             onClick={() => {
               if (child.type.kind === 'SCALAR' || child.type.kind === 'INPUT_OBJECT') {
                 dispatch(updateDocsField(child.type.name));
+                dispatch(addField(curField));
               } else if (child.type.kind === 'LIST') {
                 dispatch(updateDocsField(child.type.ofType.ofType.name as string));
+                dispatch(addField(curField));
               }
             }}
           >
@@ -122,6 +153,16 @@ function DocsThree() {
       ));
       return (
         <>
+          <div
+            className={styles.back}
+            onClick={() => {
+              dispatch(removeField());
+              prevField ? dispatch(updateDocsField(prevField)) : dispatch(updateDocsField(''));
+            }}
+          >
+            <div className={styles.arrow}></div>
+            {fieldsList.length > 1 ? prevField : 'Docs'}
+          </div>
           <div className={styles.title}>{curField}</div>
           <div>{listItems}</div>
         </>
