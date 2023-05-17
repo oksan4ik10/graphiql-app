@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { getIntrospectionQuery } from 'graphql/utilities';
+// import { getIntrospectionQuery } from 'graphql/utilities';
 
 import CodeEditor from '../Utils/CodeEditor/CodeEditor';
+import { useAppSelector, useAppDispatch } from '../../store/store';
+import { codeEditorSlice } from '../../store/reducers/codeEditReducer';
 
 import style from './Editor.module.css';
 import { useState } from 'react';
@@ -15,12 +17,49 @@ export default function Editor({ buttonFunc }: IEditorProps) {
 
   const [isHidden, setIsHidden] = useState(true);
 
+  const { strCode } = useAppSelector((state) => state.codeEditReducer);
+  const dispatch = useAppDispatch();
+  const { saveCode } = codeEditorSlice.actions;
+
   const playCode = () => {
     buttonFunc();
   };
 
-  const editCode = async () => {
-    console.log(23);
+  const editCode = () => {
+    function styleStrCode(str: string) {
+      const arr = str.split(' ');
+      let res = '';
+      let tabCount = 0;
+      let symbolFirstLine = ' ';
+      arr.forEach((item, index) => {
+        let checkLetter = true;
+        let symbolStr = item;
+        if (item === '{') {
+          tabCount += 1;
+          symbolStr = ' {';
+          symbolFirstLine = '\n';
+        }
+        if (item === '}') {
+          tabCount -= 1;
+        }
+        if (arr[index][0] === '(' || arr[index][0] === '{') {
+          checkLetter = false;
+        }
+        const s = (checkLetter ? `${symbolFirstLine}${' '.repeat(tabCount)}` : '') + symbolStr;
+        res = `${res}${s}`;
+      });
+      return res;
+    }
+
+    let s = strCode.replace(/([,:]) /g, `$1`);
+
+    s = s.replace(/([\({])/g, ` $1`);
+    s = s.replace(/(})/g, `$1 `);
+    s = s.replace(/\s+/g, ' ').trim();
+    s = styleStrCode(s).trim();
+    s = strCode.replace(/([,:])/g, `$1 `);
+
+    dispatch(saveCode(s));
 
     //для подстановки слов в редактор кода из схемы
 
@@ -31,6 +70,10 @@ export default function Editor({ buttonFunc }: IEditorProps) {
     // });
     // const res = await response.json();
     // console.log(res);
+  };
+
+  const copyCode = () => {
+    navigator.clipboard.writeText(strCode);
   };
 
   const clickBtnHidden = () => {
@@ -48,6 +91,9 @@ export default function Editor({ buttonFunc }: IEditorProps) {
         </button>
         <button onClick={editCode} className={style.button}>
           {t('prettier')}
+        </button>
+        <button onClick={copyCode} className={style.button}>
+          {t('copy')}
         </button>
       </div>
 

@@ -52,5 +52,8 @@
   "Olya info": "Authenticating you with Firebase whether you want it or not (⊙_⊙)",
   "info sub": "Our variation of GraphiQL is a playground/IDE for GraphQL requests connected to Countries API.",
   "course sub": "RS School React course driven by the community, for more info please check the",
-  "link": " link."
+  "link": " link.",
+  "prettier":"Prettier",
+  "copy":"Copy",
+  "copyClick":"Done"
 }

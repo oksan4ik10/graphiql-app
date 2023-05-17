@@ -49,7 +49,11 @@ export default function CodeEditor(props: IPropsEditor) {
         }
         height={height}
         editable={editable ? false : true}
-        extensions={[json(), linterExtension, EditorView.lineWrapping]}
+        extensions={
+          typeEditor === 'strCode'
+            ? [json(), linterExtension, EditorView.lineWrapping]
+            : [json(), EditorView.lineWrapping]
+        }
         basicSetup={{
           foldGutter: false,
           dropCursor: false,
