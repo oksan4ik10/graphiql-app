@@ -2,7 +2,7 @@ import styles from './AnchorWithImage.module.css';
 
 interface IAnchorWithImageProps {
   aHref: string;
-  aText?: string;
+  aText?: string | null;
   imgSrc: string;
   imgAlt?: string;
   specialStyle?: string;

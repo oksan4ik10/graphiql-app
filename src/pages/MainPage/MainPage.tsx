@@ -1,5 +1,7 @@
-import styles from './MainPage.module.css';
 import { lazy, Suspense } from 'react';
+
+import styles from './MainPage.module.css';
+
 import ControlPanel from '../../components/ControlPanel/ControlPanel';
 import EditorAndResponse from '../../components/EditorAndResponse/EditorAndResponse';
 import Loading from '../../components/Loading/Loading';
