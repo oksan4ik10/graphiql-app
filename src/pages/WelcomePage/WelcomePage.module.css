@@ -1,13 +1,72 @@
+@import url('../../variables.css');
 
 .welcome {
   text-align: center;
 }
 
-.test {
-    width: 100%;
-    height: 100vh;
-    border: 1px dashed darkcyan;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.welcome_outer {
+  display: flex;
+  min-width: 80%;
+  margin-bottom: 1rem;
+}
+
+.welcome_wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 5%;
+  gap: 20px;
+  min-width: 55%;
+}
+
+.welcome_pic_wrap {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 25%;
+}
+
+.welcome_git {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 100%;
+}
+
+.git_wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.git_link {
+  min-width: 70px;
+}
+
+.welcome_section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 100%;
+}
+
+.subheader {
+  border: 2px solid var(--color-one);
+  border-radius: var(--default-border-radius);
+  padding: 2px 10px;
+  user-select: none;
+}
+
+.sub {
+  text-align: left;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/pngwing.com.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
