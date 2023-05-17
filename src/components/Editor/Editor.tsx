@@ -26,17 +26,40 @@ export default function Editor({ buttonFunc }: IEditorProps) {
   };
 
   const editCode = () => {
-    console.log(23);
-    let s = strCode.replace(/{/g, ' {');
-    console.log(s);
+    function styleStrCode(str: string) {
+      const arr = str.split(' ');
+      let res = '';
+      let tabCount = 0;
+      let symbolFirstLine = ' ';
+      arr.forEach((item, index) => {
+        let checkLetter = true;
+        let symbolStr = item;
+        if (item === '{') {
+          tabCount += 1;
+          symbolStr = ' {';
+          symbolFirstLine = '\n';
+        }
+        if (item === '}') {
+          tabCount -= 1;
+        }
+        if (arr[index][0] === '(' || arr[index][0] === '{') {
+          checkLetter = false;
+        }
+        const s = (checkLetter ? `${symbolFirstLine}${' '.repeat(tabCount)}` : '') + symbolStr;
+        res = `${res}${s}`;
+      });
+      return res;
+    }
 
-    s = strCode.replace(/\s+/g, ' ');
-    console.log(s);
+    let s = strCode.replace(/([,:]) /g, `$1`);
 
-    s = strCode.replace(/\n+/g, '\n').trim();
+    s = s.replace(/([\({])/g, ` $1`);
+    s = s.replace(/(})/g, `$1 `);
+    s = s.replace(/\s+/g, ' ').trim();
+    s = styleStrCode(s).trim();
+    s = strCode.replace(/([,:])/g, `$1 `);
 
     dispatch(saveCode(s));
-    console.log(s);
 
     //для подстановки слов в редактор кода из схемы
 
@@ -48,6 +71,8 @@ export default function Editor({ buttonFunc }: IEditorProps) {
     // const res = await response.json();
     // console.log(res);
   };
+
+  const copyCode = () => {};
 
   const clickBtnHidden = () => {
     isHidden ? setIsHidden(false) : setIsHidden(true);
@@ -64,6 +89,9 @@ export default function Editor({ buttonFunc }: IEditorProps) {
         </button>
         <button onClick={editCode} className={style.button}>
           {t('prettier')}
+        </button>
+        <button onClick={copyCode} className={style.button}>
+          {t('copy')}
         </button>
       </div>
 
