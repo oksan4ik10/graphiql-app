@@ -10,7 +10,7 @@ export default function WelcomePage() {
     <>
       <div className={styles.wrapper}>
         <div className={styles.welcome}>
-          <h1>{t('welcome title')}</h1>
+          <h1 className={styles.title}>{t('welcome title')}</h1>
           <div className={styles.welcome_outer}>
             <div className={styles.welcome_wrap}>
               <section className={styles.welcome_section}>
