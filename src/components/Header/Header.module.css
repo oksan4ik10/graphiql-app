@@ -17,7 +17,6 @@
   position: sticky;
   top: 0;
   background-image: var(--gradient-one);
-  /* background: var(--gradient-two); */
   z-index: 1000;
   transition: height 0.4s ease-in-out;
 }
@@ -41,7 +40,6 @@
   background-size: cover;
   background-position: center;
   border-radius: 20px;
-  margin-right: 10px;
   transition: 0.25s;
   cursor: pointer;
 }
