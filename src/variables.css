@@ -1,11 +1,15 @@
 :root {
-  --max-width: 1420px;
+  --max-width: 1200px;
+  --max-width-small-deskstop: 940px;
+  --max-width-tablet: 600px;
+  --max-width-mobile: 100%;
 
   --default-border-radius: 10px;
   --default-border-style: 1px solid transparent;
 
   --button-height: 30px;
   --button-width: 120px;
+  --button-width-small: 85px;
 
   --color-one: #06b97a;
   --color-two: #235ad1;
@@ -17,7 +21,9 @@
   --gradient-two: linear-gradient(150deg, #bad6f0, #d3ffce, #C6E2FF, #cd7992);
 
   --font-size-title: 46px;
+  --font-size-title-mobile: 30px;
   --font-size-subtitle: 26px;
+  --font-size-subtitle-mobile: 20px;
 
   --color-text: #1D1D1D;
   --color-text-lighter: #494949;

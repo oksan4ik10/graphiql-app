@@ -41,3 +41,51 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
+@media screen and (max-width: 1000px) {
+  .wrapper {
+    max-width: var(--max-width-tablet);
+    margin: auto;
+  }
+
+  .notfound {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .wrapper {
+    max-width: var(--max-width-mobile);
+    padding: 0 5px;
+  }
+
+  .notfound {
+    flex-direction: column;
+  }
+
+  .title {
+    font-size: var(--font-size-title-mobile);
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: var(--font-size-subtitle-mobile);
+    margin-bottom: 10px;
+  }
+
+  .box {
+    width: 100%;
+    height: 55%;
+    text-align: center;
+  }
+
+  .img {
+    width: 100%;
+    height: 40%;
+    background-image: url('../../assets/pngwing.com.png');
+    background-size: 120px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}

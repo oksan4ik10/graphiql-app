@@ -13,6 +13,9 @@
   width: var(--button-width);
   margin: 5px 10px;
   transition: 0.25s;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 
 .button:hover {
@@ -22,4 +25,13 @@
 
 .alternate_back {
   background-color: var(--color-three);
+}
+
+@media screen and (max-width: 1000px) {
+  .button {
+    height: var(--button-height);
+    width: var(--button-width-small);
+    margin: 5px 0px;
+    font-size: 14px;
+  }
 }

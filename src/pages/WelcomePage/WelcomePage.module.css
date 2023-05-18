@@ -2,6 +2,7 @@
 
 .welcome {
   text-align: center;
+  padding-bottom: 25px;
 }
 
 .wrapper {
@@ -71,4 +72,48 @@
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+@media screen and (max-width: 1360px) {
+  .wrapper {
+    max-width: var(--max-width-small-deskstop);
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .wrapper {
+    max-width: var(--max-width-tablet);
+  }
+
+  .welcome_outer {
+    flex-direction: column-reverse;
+    margin-bottom: 1rem;
+  }
+
+  .img {
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+  }
+
+  .welcome_section {
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .wrapper {
+    max-width: var(--max-width-mobile);
+    padding: 0 5px;
+  }
+
+  .title {
+    font-size: var(--font-size-title-mobile);
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .sub {
+    text-align: center;
+  }
 }
