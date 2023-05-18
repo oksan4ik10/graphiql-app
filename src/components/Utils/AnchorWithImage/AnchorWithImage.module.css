@@ -3,6 +3,7 @@
 .anchor_with_image_wrapper {
   text-align: center;
   transition: 0.25s;
+  width: 85px;
 }
 
 .anchor_with_image_wrapper:hover {

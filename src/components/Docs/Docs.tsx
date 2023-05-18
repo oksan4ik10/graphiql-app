@@ -6,6 +6,7 @@ import { addField, removeField } from '../../store/reducers/docsFieldsListReduse
 import Type from './Type';
 import Arguments from './Arguments';
 import { TOneType, TField } from './interfaсes';
+import { useTranslation } from 'react-i18next';
 
 async function getSchema(endpoint: string) {
   const response = await fetch(endpoint, {
@@ -42,11 +43,12 @@ function DocsThree() {
   );
   const prevField = fieldsList[fieldsList.length - 1] ? fieldsList[fieldsList.length - 1] : '';
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   if (!curField) {
     return (
       <div>
-        <div className={styles.title}>Docs</div>
+        <div className={styles.title}>{t('docs')}</div>
         query:{' '}
         <span
           className={styles.link}
@@ -71,7 +73,7 @@ function DocsThree() {
           <span
             className={styles.link}
             onClick={() => {
-              if (child.type.kind === 'OBJECT') {
+              if (child.type.kind === 'OBJECT' || child.type.kind === 'SCALAR') {
                 dispatch(updateDocsField(child.type.name));
                 dispatch(addField(curField));
               } else if (
@@ -104,7 +106,7 @@ function DocsThree() {
             }}
           >
             <div className={styles.arrow}></div>
-            {fieldsList.length > 1 ? prevField : 'Docs'}
+            {fieldsList.length > 1 ? prevField : t('docs')}
           </div>
           <div className={styles.title}>{curField}</div>
           <div>{listItems}</div>
@@ -121,7 +123,7 @@ function DocsThree() {
             }}
           >
             <div className={styles.arrow}></div>
-            {fieldsList.length > 1 ? prevField : 'Docs'}
+            {fieldsList.length > 1 ? prevField : t('docs')}
           </div>
           <div className={styles.title}>{curField}</div>
           <span>{objectType[curField].description}</span>
@@ -161,7 +163,7 @@ function DocsThree() {
             }}
           >
             <div className={styles.arrow}></div>
-            {fieldsList.length > 1 ? prevField : 'Docs'}
+            {fieldsList.length > 1 ? prevField : t('docs')}
           </div>
           <div className={styles.title}>{curField}</div>
           <div>{listItems}</div>

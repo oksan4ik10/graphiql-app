@@ -4,6 +4,7 @@
     transform: translateX(0%);
     opacity: 1;
     transition: transform 0.4s ease;
+    line-height: 1.6;
 }
 
 .docs__window_close {
@@ -44,6 +45,7 @@
     display: flex;
     cursor: pointer;
     align-items: center;
+    margin-top: 5px;
 }
 
 .back:hover {
