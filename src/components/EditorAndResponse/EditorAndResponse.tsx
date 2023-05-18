@@ -12,7 +12,9 @@ export default function EditorAndResponse() {
 
   const { strCode, variables, header } = useAppSelector((state) => state.codeEditReducer);
 
-  const [currentResp, setCurrentResp] = useState<{ data: object } | undefined | unknown>(undefined);
+  const [currentResp, setCurrentResp] = useState<
+    { data: object } | undefined | unknown | { error: string }
+  >(undefined);
 
   const playCode = async () => {
     try {
