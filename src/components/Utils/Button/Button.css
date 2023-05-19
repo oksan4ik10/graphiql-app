@@ -29,6 +29,7 @@
   .button {
     width: var(--button-width-small);
     margin: 5px 0px;
-    font-size: 14px;
+    font-size: 13px;
+    padding: 0;
   }
 }

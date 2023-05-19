@@ -39,6 +39,11 @@
     border: 1px solid rgba(0,0,0,.4);
     border-bottom: none;
    }
+   .tab_title {
+    padding: 5px 0;
+    width: 100px;
+    text-align: center;
+   }
    .tab_content {
     position: absolute;
     border: 1px solid rgba(0,0,0,.4);
