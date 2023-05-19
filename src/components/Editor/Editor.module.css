@@ -9,12 +9,17 @@
     gap: 10px;
     font-size: 1rem;
 }
+
 .editor_main{
     overflow: auto;
     height: 500px;
     display: inline-block;
     position: relative;
+    border: 1px solid rgba(0,0,0,.3);
+    border-radius:3px;
+    box-sizing: content-box;
 }
+
 .tabs {
     position: relative;
     display: flex;
@@ -74,4 +79,33 @@
 
 .btnHidden:hover{
     background-color: rgba(0,0,0,.4);
+}
+
+@media (max-width:720px) {
+    .codeMirror{
+        grid-template-columns: 1.6fr 0.4fr;
+    }
+}
+
+@media (max-width:500px) {
+    .codeMirror{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    }
+    .buttons{
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .tabs{
+        margin-bottom: 70px;
+    }
+    .tab :checked ~ .tab_content {
+        display: block;
+        height: 70px;
+    }
+    .tab_content {
+        border:none;
+    }
 }
