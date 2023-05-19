@@ -3,6 +3,7 @@
 .wrapper {
   margin: 0;
   flex: 1 0 auto;
+  background-color: #FAFAFA;
 }
 
 .wrapper_loader {
