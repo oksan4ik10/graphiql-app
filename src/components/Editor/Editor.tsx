@@ -85,7 +85,7 @@ export default function Editor({ buttonFunc }: IEditorProps) {
       <div className={style.editor_main}>
         <CodeEditor typeEditor="strCode" height="500px"></CodeEditor>
       </div>
-      <div className="buttons">
+      <div className={style.buttons}>
         <button onClick={playCode} className={style.button}>
           {t('run')}
         </button>

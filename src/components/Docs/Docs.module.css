@@ -15,6 +15,13 @@
     transition: transform 0.4s ease;
 }
 
+@media (max-width:800px) {
+    .docs__window{
+        width: calc(100vw - 50px);
+    }
+    
+}
+
 .node {
     cursor: pointer;
 }

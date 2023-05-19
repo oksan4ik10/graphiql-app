@@ -2,3 +2,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
+@media (max-width:720px) {
+  .edit_resp_wraper {
+    grid-template-columns: 1fr;
+  }
+  
+}
