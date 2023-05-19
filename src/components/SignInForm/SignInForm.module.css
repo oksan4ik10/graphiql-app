@@ -32,11 +32,10 @@
   line-height: 2
 }
 
-@media (max-width: 450px) {
-
+@media (max-width: 640px) {
   .signin_in_wrap {
+    width: 100%;
     min-width: 260px;
-    max-width: 300px;
+    max-width: 400px;
   }
-
 }

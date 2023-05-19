@@ -9,7 +9,7 @@ export default function SignInPage() {
 
   return (
     <div className={styles.signin}>
-      <h1>{t('have acc sign in title')}</h1>
+      <h1 className={styles.title}>{t('have acc sign in title')}</h1>
       <SignInForm />
     </div>
   );

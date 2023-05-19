@@ -12,12 +12,6 @@
   width: var(--button-width);
   margin: 5px 10px;
   transition: 0.25s;
-  display: flex;
-  padding: 0;
-  align-items: center;
-  line-height: 1;
-  align-content: center;
-  justify-content: center;
   color: white;
   font-weight: 600;
 }

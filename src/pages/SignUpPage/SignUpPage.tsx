@@ -9,7 +9,7 @@ export default function SignUpPage() {
 
   return (
     <div className={styles.signup}>
-      <h1>{t('no acc sign up title')}</h1>
+      <h1 className={styles.title}>{t('no acc sign up title')}</h1>
       <SignUpForm />
     </div>
   );
