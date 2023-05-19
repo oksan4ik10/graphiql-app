@@ -2,6 +2,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import { EditorView } from '@codemirror/view';
 import { linter } from '@codemirror/lint';
 import { json, jsonParseLinter } from '@codemirror/lang-json';
+import { materialLight } from '@uiw/codemirror-theme-material';
 
 import { useAppDispatch, useAppSelector } from '../../../store/store';
 import { codeEditorSlice } from '../../../store/reducers/codeEditReducer';
@@ -54,6 +55,7 @@ export default function CodeEditor(props: IPropsEditor) {
             ? [json(), linterExtension, EditorView.lineWrapping]
             : [json(), EditorView.lineWrapping]
         }
+        theme={materialLight}
         basicSetup={{
           foldGutter: false,
           dropCursor: false,
