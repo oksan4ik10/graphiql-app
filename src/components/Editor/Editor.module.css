@@ -87,6 +87,12 @@
     background-color: rgba(0,0,0,.4);
 }
 
+@media (max-width:850px) {
+    .btnHidden{
+        right: 3px;
+    }
+}
+
 @media (max-width:720px) {
     .codeMirror{
         grid-template-columns: 1.6fr 0.4fr;
