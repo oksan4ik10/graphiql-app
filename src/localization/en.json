@@ -39,6 +39,7 @@
   "variables": "Variables",
   "headers": "Headers",
   "docs": "Documentation",
+  "docs-err": "Error getting Schema. Check internet connection",
   "run": "Run",
   "forgot pass": "Forgot password?",
   "prettier": "Prettier",

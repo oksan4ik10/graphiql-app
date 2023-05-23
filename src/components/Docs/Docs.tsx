@@ -14,19 +14,29 @@ async function getSchema(endpoint: string) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ query: getIntrospectionQuery() }),
   })
-    .then((res) => res.json())
+    .then((res) => {
+      return res.json();
+    })
     .then((res) => {
       return res.data;
+    })
+    .catch((err) => {
+      console.error('ERROR introspecting schema: ', JSON.stringify(err.message));
     });
   try {
     return response;
-  } finally {
-  }
+  } catch {}
 }
 
+let root = '';
+let types = [];
+
 const schema = await getSchema('https://countries.trevorblades.com');
-const root = schema.__schema.queryType.name;
-const types = schema.__schema.types;
+if (schema) {
+  root = schema.__schema.queryType.name;
+  types = schema.__schema.types;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const objectType: any = {};
 
@@ -45,7 +55,9 @@ function DocsThree() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  if (!curField) {
+  if (!root) {
+    return <div>{t('docs-err')}</div>;
+  } else if (!curField) {
     return (
       <div>
         <div className={styles.title}>{t('docs')}</div>

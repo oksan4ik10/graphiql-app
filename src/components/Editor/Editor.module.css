@@ -27,7 +27,6 @@
     width: 100%;
     overflow: auto;
     height: 100%;
-
    }
    .tab, .tab_title {
     display: inline-block;
@@ -64,7 +63,9 @@
    .tabs2 .tab :checked ~ .tab_content {
     display: none;
    }
-
+.tab_title:hover {
+    cursor: pointer;
+}
 .btnHidden.active svg{
     transform: rotate(180deg);
 }
