@@ -89,7 +89,7 @@
 
 @media (max-width:850px) {
     .btnHidden{
-        right: 3px;
+        right: 5px;
     }
 }
 
@@ -110,6 +110,9 @@
         justify-content: space-around;
         align-items: center;
     }
+    /* .button {
+        margin: 0 5px;
+    } */
     .tabs{
         margin-bottom: 70px;
     }

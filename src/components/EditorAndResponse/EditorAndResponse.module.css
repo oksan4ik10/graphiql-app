@@ -8,6 +8,5 @@
 @media (max-width:720px) {
   .edit_resp_wraper {
     grid-template-columns: 1fr;
-    margin-right: 0px;
   }
 }
