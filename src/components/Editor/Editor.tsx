@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-// import { getIntrospectionQuery } from 'graphql/utilities';
 
 import CodeEditor from '../Utils/CodeEditor/CodeEditor';
 import { useAppSelector, useAppDispatch } from '../../store/store';
@@ -60,16 +59,6 @@ export default function Editor({ buttonFunc }: IEditorProps) {
     s = strCode.replace(/([,:])/g, `$1 `);
 
     dispatch(saveCode(s));
-
-    //для подстановки слов в редактор кода из схемы
-
-    // const response = await fetch('https://countries.trevorblades.com', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ query: getIntrospectionQuery() }),
-    // });
-    // const res = await response.json();
-    // console.log(res);
   };
 
   const copyCode = () => {
