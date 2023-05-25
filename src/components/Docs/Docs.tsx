@@ -5,7 +5,7 @@ import { updateDocsField } from '../../store/reducers/docsFieldReduser';
 import { addField, removeField } from '../../store/reducers/docsFieldsListReduser';
 import Type from './Type';
 import Arguments from './Arguments';
-import { TOneType, TField } from './interfaсes';
+import { TOneType, TField, TObjectType } from './interfaсes';
 import { useTranslation } from 'react-i18next';
 
 async function getSchema(endpoint: string) {
@@ -37,8 +37,7 @@ if (schema) {
   types = schema.__schema.types;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const objectType: any = {};
+const objectType: TObjectType = {};
 
 types.forEach((element: TOneType) => {
   if (element.name[0] !== '_') {
@@ -76,7 +75,7 @@ function DocsThree() {
   } else {
     if (objectType[curField].kind === 'OBJECT') {
       const children = objectType[curField].fields;
-      const listItems = children.map((child: TField) => (
+      const listItems = children?.map((child: TField) => (
         <div key={child.name}>
           <span>{child.name}</span>
           <span>
@@ -143,7 +142,7 @@ function DocsThree() {
       );
     } else if (objectType[curField].kind === 'INPUT_OBJECT') {
       const children = objectType[curField].inputFields;
-      const listItems = children.map((child: TField) => (
+      const listItems = children?.map((child: TField) => (
         <div key={child.name}>
           <span>{child.name}</span>
           <span>
