@@ -2,8 +2,8 @@ export type TOneType = {
   kind: string;
   name: string;
   description: string;
-  fields: Array<object> | null;
-  inputFields: Array<object> | null;
+  fields: Array<TField> | null;
+  inputFields: Array<TField> | null;
 };
 
 export type TField = {
@@ -43,3 +43,7 @@ export type TArg = {
     };
   };
 };
+
+export interface TObjectType {
+  [key: string]: TOneType;
+}
