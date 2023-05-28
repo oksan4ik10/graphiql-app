@@ -29,23 +29,29 @@ export default function Editor({ buttonFunc }: IEditorProps) {
       const arr = str.split(' ');
       let res = '';
       let tabCount = 0;
-      let symbolFirstLine = ' ';
-      arr.forEach((item, index) => {
-        let checkLetter = true;
+      let checkFirstLetter = true;
+      arr.forEach((item) => {
         let symbolStr = item;
+        let checkEnter = false;
         if (item === '{') {
           tabCount += 1;
-          symbolStr = ' {';
-          symbolFirstLine = '\n';
         }
         if (item === '}') {
           tabCount -= 1;
         }
-        if (arr[index][0] === '(' || arr[index][0] === '{') {
-          checkLetter = false;
+        if (item[0] !== '(' && item !== '{') {
+          checkEnter = true;
         }
-        const s = (checkLetter ? `${symbolFirstLine}${' '.repeat(tabCount)}` : '') + symbolStr;
-        res = `${res}${s}`;
+        if (item[0] === '(') {
+          checkFirstLetter = false;
+          symbolStr = symbolStr.replace(/([,:])/g, `$1 `);
+        }
+        const strReplace = checkFirstLetter
+          ? ` ${symbolStr}`
+          : checkEnter
+          ? `\n${' '.repeat(tabCount)}${symbolStr}`
+          : ` ${symbolStr}`;
+        res = `${res}${strReplace}`;
       });
       return res;
     }
@@ -55,9 +61,8 @@ export default function Editor({ buttonFunc }: IEditorProps) {
     s = s.replace(/([\({])/g, ` $1`);
     s = s.replace(/(})/g, `$1 `);
     s = s.replace(/\s+/g, ' ').trim();
-    s = styleStrCode(s).trim();
-    s = strCode.replace(/([,:])/g, `$1 `);
 
+    s = styleStrCode(s).trim();
     dispatch(saveCode(s));
   };
 
