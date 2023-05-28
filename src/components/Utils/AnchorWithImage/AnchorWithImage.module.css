@@ -1,0 +1,34 @@
+@import url("../../../variables.css");
+
+.anchor_with_image_wrapper {
+  text-align: center;
+  transition: 0.25s;
+  width: 80px;
+}
+
+footer article .anchor_with_image_wrapper {
+  width: 70px;
+}
+
+.anchor_with_image_wrapper:hover {
+  filter: invert(83%) sepia(14%) saturate(4694%) hue-rotate(293deg) brightness(86%) contrast(85%);
+}
+
+.anchor_with_image_text {
+  color: black;
+  font-weight: 500;
+}
+
+.anchor_with_image_image {
+  max-width: 80px;
+}
+
+@media screen and (max-width: 640px) {
+  footer .anchor_with_image_text {
+    display: none;
+  }
+
+  footer article .anchor_with_image_wrapper {
+    width: 30px;
+  }
+}

@@ -1,0 +1,52 @@
+@import url("../../variables.css");
+
+.footer {
+  background-image: var(--gradient-one);
+  height: 60px;
+  width: 100%;
+}
+
+.wrapper {
+  max-width: var(--max-width);
+  margin: auto;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer_dev_git {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer_year {
+  font-weight: 600;
+  user-select: none;
+}
+
+@media screen and (max-width: 1360px) {
+  .wrapper {
+    max-width: var(--max-width-small-deskstop);
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .wrapper {
+    max-width: var(--max-width-tablet);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .wrapper {
+    max-width: var(--max-width-mobile);
+    padding: 0 5px;
+  }
+
+  .footer_dev_git {
+    gap: 5px;
+  }
+}

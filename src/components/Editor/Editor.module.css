@@ -1,0 +1,123 @@
+@import url("../Utils/Button/Button.css");
+
+.codeMirror{
+    display: grid;
+    grid-template-columns: 1.8fr 0.2fr;
+    grid-template-rows: 1.5fr 0.5fr;
+    max-height: 100%;
+    overflow: hidden;
+    gap: 10px;
+    font-size: 1rem;
+}
+
+.editor_main{
+    overflow: auto;
+    height: 500px;
+    display: inline-block;
+    position: relative;
+    border: 1px solid rgba(0,0,0,.3);
+    border-radius:3px;
+    box-sizing: content-box;
+}
+
+.tabs {
+    position: relative;
+    display: flex;
+    align-items: start;
+    width: 100%;
+    overflow: auto;
+    height: 100%;
+   }
+   .tab, .tab_title {
+    display: inline-block;
+   }
+   .tab input[type="radio"] { display: none; }
+   .tab_title {
+    background: rgba(0,0,0,.2);
+    padding: 5px 10px;
+    border: 1px solid rgba(0,0,0,.4);
+    border-bottom: none;
+   }
+   .tab_title {
+    padding: 5px 0;
+    width: 100px;
+    text-align: center;
+   }
+   .tab_content {
+    position: absolute;
+    border: 1px solid rgba(0,0,0,.4);
+    padding: 10px;
+    left: 0; 
+    width: calc(100% - 20px);
+    display: none;
+   }
+   .tab :checked + .tab_title {
+    position: relative;
+    background: #fff;
+    top: 1px;
+    z-index: 1;
+   }
+   .tab :checked ~ .tab_content {
+    display: block;
+   }
+   .tabs2 .tab :checked ~ .tab_content {
+    display: none;
+   }
+.tab_title:hover {
+    cursor: pointer;
+}
+.btnHidden.active svg{
+    transform: rotate(180deg);
+}
+.btnHidden{
+    position: absolute;
+    outline: none;
+    border:none;
+    background-color: rgba(0,0,0,0);
+    border-radius: 5px;
+    padding: 7px;
+    opacity: .4;
+    transition: .2s;
+    cursor: pointer;
+    right: 20px;
+    transform: rotate(180deg);
+}
+
+.btnHidden:hover{
+    background-color: rgba(0,0,0,.4);
+}
+
+@media (max-width:850px) {
+    .btnHidden{
+        right: 5px;
+    }
+}
+
+@media (max-width:720px) {
+    .codeMirror{
+        grid-template-columns: 1.6fr 0.4fr;
+    }
+}
+
+@media (max-width:500px) {
+    .codeMirror{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    }
+    .buttons{
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .tabs{
+        margin-bottom: 70px;
+    }
+    .tab :checked ~ .tab_content {
+        display: block;
+        height: 70px;
+    }
+    .tab_content {
+        border:none;
+    }
+}

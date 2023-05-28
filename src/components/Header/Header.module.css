@@ -1,0 +1,89 @@
+@import url("../../variables.css");
+
+.header {
+  background-color: white;
+  background-image: var(--gradient-one);
+  height: 60px;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: height 0.4s ease-in-out; 
+}
+
+.fixed {
+  height: 45px;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background-image: var(--gradient-one);
+  z-index: 1000;
+  transition: height 0.4s ease-in-out;
+}
+
+.wrapper {
+  max-width: var(--max-width);
+  margin: auto;
+  height: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 10px;
+}
+
+.lang_label {
+  position : relative ;
+  display : inline-block;
+  width : 40px;
+  height : 25px;
+  background-image: url("/gbflag.png");
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.lang_label::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #c70000;
+  top: 1px; 
+  left: 1px;
+  transition: 0.25s;
+  border: 3px white solid; 
+}
+
+.lang:checked + .lang_label::after {
+  left : 14px; 
+}
+
+.lang:checked + .lang_label {
+  background-image: url("/ruflag.png");
+}
+
+.lang {
+  display: none;
+}
+
+@media screen and (max-width: 1360px) {
+  .wrapper {
+    max-width: var(--max-width-small-deskstop);
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .wrapper {
+    max-width: var(--max-width-tablet);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .wrapper {
+    max-width: var(--max-width-mobile);
+    padding: 0 5px;
+  }
+}

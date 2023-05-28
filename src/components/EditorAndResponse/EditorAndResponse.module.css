@@ -1,0 +1,12 @@
+.edit_resp_wraper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+@media (max-width:720px) {
+  .edit_resp_wraper {
+    grid-template-columns: 1fr;
+  }
+}

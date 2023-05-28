@@ -1,0 +1,13 @@
+@import url("../../variables.css");
+
+.wrapper {
+  margin: 0;
+  flex: 1 0 auto;
+  background-color: #FAFAFA;
+}
+
+.wrapper_loader {
+  max-width: var(--max-width);
+  margin: 80px auto;
+  flex: 1 0 auto;
+}

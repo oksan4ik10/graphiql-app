@@ -1,0 +1,35 @@
+@import url("../../variables.css");
+
+.signup_wrap {
+  width: 95%;
+  height: 95%;
+  margin: auto;
+}
+
+.signup_in_wrap {
+  width: 35%;
+  padding: 5% 2%;
+  min-width: 350px;
+  max-width: 500px;
+  margin: auto;
+  border-radius: var(--default-border-radius);
+  background: var(--color-background);
+}
+
+.signup_signin {
+  margin-top: 5px;
+  user-select: none;
+}
+
+.modal_error {
+  margin: 1rem auto;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .signup_in_wrap {
+    width: 100%;
+    min-width: 260px;
+    max-width: 400px;
+  }
+}

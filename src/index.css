@@ -1,0 +1,87 @@
+@import url("./variables.css");
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: var(--color-one);
+  text-decoration: inherit;
+  cursor: pointer;
+}
+a:hover {
+  color: var(--color-three);
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+  justify-content: center;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 30px auto;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: var(--color-three);
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* Работает в Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var( --color-text-light) var( --color-background);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(  --color-background);
+  cursor: pointer;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var( --color-text-light);
+  border-radius: 20px;
+  border: 2px solid var(  --color-background);
+  cursor: pointer;
+}
