@@ -1,7 +1,6 @@
 import CodeMirror from '@uiw/react-codemirror';
 import { EditorView } from '@codemirror/view';
-import { linter } from '@codemirror/lint';
-import { json, jsonParseLinter } from '@codemirror/lang-json';
+import { json } from '@codemirror/lang-json';
 import { materialLight } from '@uiw/codemirror-theme-material';
 
 import { useAppDispatch, useAppSelector } from '../../../store/store';
@@ -24,8 +23,6 @@ export default function CodeEditor(props: IPropsEditor) {
   const { strCode, variables, header } = useAppSelector((state) => state.codeEditReducer);
   const dispatch = useAppDispatch();
   const { saveCode, saveVariables, saveHeader } = codeEditorSlice.actions;
-
-  const linterExtension = linter(jsonParseLinter());
 
   function changeInput(text: string) {
     if (typeEditor === 'header') dispatch(saveHeader(text));
@@ -50,11 +47,7 @@ export default function CodeEditor(props: IPropsEditor) {
         }
         height={height}
         editable={editable ? false : true}
-        extensions={
-          typeEditor === 'strCode'
-            ? [json(), linterExtension, EditorView.lineWrapping]
-            : [json(), EditorView.lineWrapping]
-        }
+        extensions={[json(), EditorView.lineWrapping]}
         theme={materialLight}
         basicSetup={{
           foldGutter: false,
